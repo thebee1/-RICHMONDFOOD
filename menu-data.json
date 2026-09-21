@@ -1,0 +1,42 @@
+{
+  "restaurant": "RICHMOND FOOD",
+  "currency": "FCFA",
+  "delivery": {
+    "fee": 1000,
+    "freeFrom": 10000,
+    "zones": ["Cocody", "Angre", "Plateau", "Marcory", "Yopougon"]
+  },
+  "categories": [
+    { "id": "all", "name": "Tous" },
+    { "id": "locaux", "name": "Plats Locaux" },
+    { "id": "fastfood", "name": "Fast-Food" },
+    { "id": "grillades", "name": "Grillades" },
+    { "id": "boissons", "name": "Boissons" },
+    { "id": "desserts", "name": "Desserts" }
+  ],
+  "dishes": [
+    { "id": 1, "name": "Attieke Poisson", "category": "locaux", "price": 2500, "icon": "🐟", "desc": "Attieke frais avec poisson grille", "tags": ["hot"] },
+    { "id": 2, "name": "Riz Sauce Graine", "category": "locaux", "price": 2000, "icon": "🍚", "desc": "Riz avec sauce graine onctueuse" },
+    { "id": 3, "name": "Kedjenou de Poulet", "category": "locaux", "price": 4500, "icon": "🍗", "desc": "Poulet mijote aux legumes", "tags": ["hot"] },
+    { "id": 4, "name": "Garba", "category": "locaux", "price": 1500, "icon": "🍚", "desc": "Attieke avec thon frit" },
+    { "id": 5, "name": "Sauce Claire Poisson", "category": "locaux", "price": 3000, "icon": "🐟", "desc": "Poisson frais en sauce claire" },
+    { "id": 6, "name": "Riz Gras", "category": "locaux", "price": 2000, "icon": "🍚", "desc": "Riz cuisine aux legumes" },
+    { "id": 10, "name": "Burger Classic", "category": "fastfood", "price": 3500, "icon": "🍔", "desc": "Pain, steak, fromage, crudites", "tags": ["new"] },
+    { "id": 11, "name": "Pizza Margherita", "category": "fastfood", "price": 6000, "icon": "🍕", "desc": "Tomate, fromage, basilic" },
+    { "id": 12, "name": "Pizza Pepperoni", "category": "fastfood", "price": 7000, "icon": "🍕", "desc": "Fromage, pepperoni, origan", "tags": ["hot"] },
+    { "id": 13, "name": "Sandwich Poulet", "category": "fastfood", "price": 2500, "icon": "🥪", "desc": "Poulet grille, crudites, sauce" },
+    { "id": 14, "name": "Hot-Dog", "category": "fastfood", "price": 2000, "icon": "🌭", "desc": "Saucisse, pain, moutarde" },
+    { "id": 20, "name": "Poulet Braise", "category": "grillades", "price": 5000, "icon": "🍗", "desc": "Poulet entier braise au feu de bois", "tags": ["hot"] },
+    { "id": 21, "name": "Brochettes de Boeuf", "category": "grillades", "price": 3000, "icon": "🍖", "desc": "Brochettes tendres et epicees" },
+    { "id": 22, "name": "Poisson Braise", "category": "grillades", "price": 4000, "icon": "🐟", "desc": "Poisson entier grille" },
+    { "id": 23, "name": "Cotelettes Agneau", "category": "grillades", "price": 6500, "icon": "🍖", "desc": "Cotelettes grillees" },
+    { "id": 30, "name": "Jus de Bissap", "category": "boissons", "price": 500, "icon": "🥤", "desc": "Jus naturel d'hibiscus", "tags": ["veg"] },
+    { "id": 31, "name": "Jus de Gingembre", "category": "boissons", "price": 500, "icon": "🥤", "desc": "Jus frais de gingembre", "tags": ["veg", "hot"] },
+    { "id": 32, "name": "Jus de Bouye", "category": "boissons", "price": 700, "icon": "🥤", "desc": "Jus de baobab onctueux", "tags": ["veg"] },
+    { "id": 33, "name": "Coca-Cola 33cl", "category": "boissons", "price": 600, "icon": "🥤", "desc": "Boisson gazeuse fraiche" },
+    { "id": 34, "name": "Eau Minerale 50cl", "category": "boissons", "price": 300, "icon": "💧", "desc": "Eau fraiche" },
+    { "id": 40, "name": "Beignets", "category": "desserts", "price": 500, "icon": "🍩", "desc": "Beignets chauds et sucres", "tags": ["veg"] },
+    { "id": 41, "name": "Gauffres", "category": "desserts", "price": 1000, "icon": "🧇", "desc": "Gauffres croustillantes", "tags": ["veg"] },
+    { "id": 42, "name": "Salade de Fruits", "category": "desserts", "price": 1500, "icon": "🍓", "desc": "Fruits frais de saison", "tags": ["veg"] }
+  ]
+}
