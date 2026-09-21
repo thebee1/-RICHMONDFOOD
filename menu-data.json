@@ -1,5 +1,6 @@
 {
   "restaurant": "RICHMOND FOOD",
+  "webhook_url": "https://deploy-showoff-engaging.ngrok-free.dev/webhook/restaurant-order",
   "currency": "FCFA",
   "delivery": {
     "fee": 1000,
