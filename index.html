@@ -598,6 +598,50 @@ const CATEGORIES = [
   { id: 'desserts', name: '🍰 Desserts' },
 ];
 
+function escapeHtml(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function formatPrice(value) {
+  return Number(value || 0).toLocaleString('fr-FR') + ' F';
+}
+
+function validateOrderData(orderData) {
+  const name = String(orderData.customer_name || '').trim();
+  const phone = String(orderData.customer_phone || '').trim();
+  const address = String(orderData.customer_address || '').trim();
+  const paymentMethod = String(orderData.payment_method || '').trim();
+
+  if (!name || name.length < 2) {
+    throw new Error('Le nom complet est obligatoire.');
+  }
+
+  if (!/^[0-9+\s().-]{8,20}$/.test(phone)) {
+    throw new Error('Le numéro de téléphone est invalide.');
+  }
+
+  if (!address || address.length < 5) {
+    throw new Error('L\'adresse de livraison est obligatoire.');
+  }
+
+  if (!paymentMethod) {
+    throw new Error('Veuillez choisir un mode de paiement.');
+  }
+
+  if (!Array.isArray(orderData.items) || orderData.items.length === 0) {
+    throw new Error('Le panier est vide.');
+  }
+}
+
+function closeAllModals() {
+  document.querySelectorAll('.modal').forEach(modal => modal.classList.remove('active'));
+}
+
 // ================================================================
 // ETAT DE L'APPLICATION
 // ================================================================
@@ -730,15 +774,18 @@ function openDishDetails(dishId) {
   const category = CATEGORIES.find(item => item.id === dish.category);
   const imageUrl = DISH_IMAGES[dish.id];
   const container = document.getElementById('dishDetailsContent');
+  const safeName = escapeHtml(dish.name);
+  const safeDesc = escapeHtml(dish.desc);
+
   container.innerHTML = `
-    <img class="dish-detail-image" src="${imageUrl || ''}" alt="${dish.name}" onerror="this.hidden=true">
+    <img class="dish-detail-image" src="${escapeHtml(imageUrl || '')}" alt="${safeName}" onerror="this.hidden=true">
     <div class="dish-detail-body">
-      <div>${dish.tags?.map(tag => `<span class="badge badge-${tag === 'hot' ? 'hot' : tag === 'new' ? 'new' : 'veg'}">${tag === 'hot' ? '🔥 Populaire' : tag === 'new' ? '✨ Nouveau' : '🌱 Veggie'}</span>`).join('') || ''}</div>
-      <h3>${dish.name}</h3>
-      <p class="dish-detail-description">${dish.desc}</p>
+      <div>${(dish.tags || []).map(tag => `<span class="badge badge-${tag === 'hot' ? 'hot' : tag === 'new' ? 'new' : 'veg'}">${tag === 'hot' ? '🔥 Populaire' : tag === 'new' ? '✨ Nouveau' : '🌱 Veggie'}</span>`).join('') || ''}</div>
+      <h3>${safeName}</h3>
+      <p class="dish-detail-description">${safeDesc}</p>
       <div class="dish-detail-meta">
-        <span class="dish-detail-category">${category ? category.name : 'Plat'}</span>
-        <span class="dish-detail-price">${dish.price.toLocaleString()} F</span>
+        <span class="dish-detail-category">${escapeHtml(category ? category.name : 'Plat')}</span>
+        <span class="dish-detail-price">${formatPrice(dish.price)}</span>
       </div>
       <button class="btn-submit" onclick="addToCartFromDetails(${dish.id})">+ Ajouter au panier</button>
     </div>
@@ -782,25 +829,29 @@ function renderDishes() {
   }
 
   container.innerHTML = filtered.map(dish => {
+    const safeName = escapeHtml(dish.name);
+    const safeDesc = escapeHtml(dish.desc);
+    const safeAlt = escapeHtml(`${dish.name}`);
+    const safeAria = escapeHtml(`Voir les détails de ${dish.name}`);
     let badges = '';
     if (dish.tags?.includes('hot')) badges += '<span class="badge badge-hot">🔥 Populaire</span>';
     if (dish.tags?.includes('new')) badges += '<span class="badge badge-new">✨ Nouveau</span>';
     if (dish.tags?.includes('veg')) badges += '<span class="badge badge-veg">🌱 Veggie</span>';
 
     return `
-      <div class="dish-card" role="button" tabindex="0" onclick="openDishDetails(${dish.id})" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openDishDetails(${dish.id}); }" aria-label="Voir les détails de ${dish.name}">
+      <div class="dish-card" role="button" tabindex="0" onclick="openDishDetails(${dish.id})" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openDishDetails(${dish.id}); }" aria-label="${safeAria}">
         <div class="dish-image">
-          <img src="${DISH_IMAGES[dish.id] || ''}" alt="${dish.name}" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
-          <span class="dish-image-fallback" hidden>${dish.icon}</span>
+          <img src="${escapeHtml(DISH_IMAGES[dish.id] || '')}" alt="${safeAlt}" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+          <span class="dish-image-fallback" hidden>${escapeHtml(dish.icon)}</span>
         </div>
         <div class="dish-info">
-          <div class="dish-name">${dish.name}</div>
-          <div class="dish-desc">${dish.desc}</div>
+          <div class="dish-name">${safeName}</div>
+          <div class="dish-desc">${safeDesc}</div>
           <div>${badges}</div>
           <div class="dish-footer">
-            <div class="dish-price">${dish.price.toLocaleString()} F</div>
+            <div class="dish-price">${formatPrice(dish.price)}</div>
             <div class="dish-actions">
-              <button class="favorite-btn ${favorites.includes(dish.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${dish.id})" aria-label="Ajouter ${dish.name} aux favoris">${favorites.includes(dish.id) ? '♥' : '♡'}</button>
+              <button class="favorite-btn ${favorites.includes(dish.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${dish.id})" aria-label="Ajouter ${safeName} aux favoris">${favorites.includes(dish.id) ? '♥' : '♡'}</button>
               <button class="btn-add" onclick="event.stopPropagation(); addToCart(${dish.id})">+ Ajouter</button>
             </div>
           </div>
@@ -878,8 +929,11 @@ function saveCart() {
 function loadCart() {
   try {
     const saved = localStorage.getItem('richmondCart');
-    if (saved) {
-      cart = JSON.parse(saved);
+    if (!saved) return;
+
+    const parsed = JSON.parse(saved);
+    if (Array.isArray(parsed)) {
+      cart = parsed.filter(item => item && typeof item.id !== 'undefined' && typeof item.qty === 'number' && item.qty > 0);
       updateCartCount();
     }
   } catch (e) {}
@@ -983,11 +1037,11 @@ async function submitOrder(event) {
   const orderContent = document.getElementById('orderContent');
 
   const orderData = {
-    customer_name: document.getElementById('customerName').value,
-    customer_phone: document.getElementById('customerPhone').value,
-    customer_address: document.getElementById('customerAddress').value,
-    payment_method: document.getElementById('paymentMethod').value,
-    notes: document.getElementById('notes').value,
+    customer_name: document.getElementById('customerName').value.trim(),
+    customer_phone: document.getElementById('customerPhone').value.trim(),
+    customer_address: document.getElementById('customerAddress').value.trim(),
+    payment_method: document.getElementById('paymentMethod').value.trim(),
+    notes: document.getElementById('notes').value.trim(),
     items: cart.map(item => ({
       id: item.id,
       name: item.name,
@@ -1000,6 +1054,13 @@ async function submitOrder(event) {
     order_date: new Date().toISOString(),
     order_number: 'CMD-' + Date.now().toString().slice(-6)
   };
+
+  try {
+    validateOrderData(orderData);
+  } catch (error) {
+    alert(error.message);
+    return;
+  }
 
   submitBtn.disabled = true;
   submitBtn.textContent = '⏳ Envoi en cours...';
@@ -1016,9 +1077,9 @@ async function submitOrder(event) {
         <div class="success-message">
           <div class="success-icon">🎉</div>
           <h3>Commande confirmée !</h3>
-          <p>Merci ${orderData.customer_name} !</p>
+          <p>Merci ${escapeHtml(orderData.customer_name)} !</p>
           <div class="order-number">
-            N° ${orderData.order_number}
+            N° ${escapeHtml(orderData.order_number)}
           </div>
           <p>Vous recevrez une confirmation par WhatsApp<br>dans les prochaines minutes.</p>
           <p style="margin-top: 20px; font-weight: 700;">
@@ -1041,7 +1102,6 @@ async function submitOrder(event) {
     submitBtn.disabled = false;
     submitBtn.textContent = '✅ Confirmer la commande';
 
-    // Fallback WhatsApp
     const message = buildWhatsAppMessage(orderData);
     const waUrl = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 
@@ -1104,6 +1164,12 @@ function showNotification(message) {
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('modal')) {
     e.target.classList.remove('active');
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeAllModals();
   }
 });
 </script>
