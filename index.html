@@ -19,9 +19,30 @@
   --shadow: 0 2px 12px rgba(30,43,34,0.08);
   --radius: 14px;
 }
-body { background: var(--bg); color: var(--dark); line-height: 1.65; }
+body { background: var(--bg); color: var(--dark); line-height: 1.65; overflow-x: hidden; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 h1, h2, h3 { letter-spacing: 0.5px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes modalReveal {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translate(-50%, 14px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+@keyframes softPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200,155,60,0); }
+  50% { box-shadow: 0 0 0 6px rgba(200,155,60,0.18); }
+}
 
 /* HEADER */
 header {
@@ -49,10 +70,14 @@ header {
 
 /* HERO */
 .hero {
-  background: var(--dark);
+  background-color: var(--dark);
+  background-image: linear-gradient(90deg, rgba(30,43,34,0.94), rgba(30,43,34,0.68)), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1800&q=88');
+  background-position: center;
+  background-size: cover;
   color: var(--bg); padding: 90px 24px 100px; text-align: center;
   position: relative; overflow: hidden;
 }
+.hero > .container { position: relative; z-index: 1; }
 .hero::after {
   content: ''; position: absolute; inset: 0;
   background: radial-gradient(circle at 50% 120%, rgba(200,155,60,0.25), transparent 60%);
@@ -60,6 +85,9 @@ header {
 }
 .hero h1 { font-size: 3rem; margin-bottom: 18px; color: var(--gold-light); }
 .hero p { font-size: 1.15rem; margin-bottom: 35px; color: rgba(250,247,240,0.85); }
+.hero h1, .hero p, .hero-buttons { animation: heroReveal 0.7s ease both; }
+.hero p { animation-delay: 0.12s; }
+.hero-buttons { animation-delay: 0.24s; }
 .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
 .btn-primary, .btn-secondary {
   padding: 14px 32px; border-radius: 8px; text-decoration: none;
@@ -116,19 +144,32 @@ header {
 }
 .cat-btn:hover { border-color: var(--green); color: var(--green); }
 .cat-btn.active { background: var(--green); color: var(--bg); border-color: var(--green); }
+.cat-btn, .favorites-toggle, .search-box, .sort-select { transition: border-color 0.25s, background-color 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s; }
+.cat-btn:hover, .favorites-toggle:hover { transform: translateY(-2px); }
+.search-box:focus, .sort-select:focus { box-shadow: 0 0 0 3px rgba(46,91,63,0.12); }
 
 .dishes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; }
 .dish-card {
   background: var(--card); border-radius: var(--radius); overflow: hidden;
   border: 1px solid var(--line); box-shadow: var(--shadow);
-  transition: all 0.25s; display: flex; flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column;
+  animation: fadeUp 0.5s ease both;
 }
-.dish-card:hover { transform: translateY(-6px); border-color: var(--gold); }
+.dish-card:nth-child(2) { animation-delay: 0.06s; }
+.dish-card:nth-child(3) { animation-delay: 0.12s; }
+.dish-card:nth-child(4) { animation-delay: 0.18s; }
+.dish-card:nth-child(5) { animation-delay: 0.24s; }
+.dish-card:nth-child(6) { animation-delay: 0.30s; }
+.dish-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 10px 24px rgba(30,43,34,0.14); }
 .dish-image {
   height: 190px; background: var(--dark);
   display: flex; align-items: center; justify-content: center;
-  font-size: 4.5rem; border-bottom: 3px solid var(--gold);
+  font-size: 4.5rem; border-bottom: 3px solid var(--gold); transition: transform 0.35s ease, background-color 0.35s ease;
 }
+.dish-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.5s ease; }
+.dish-card:hover .dish-image img { transform: scale(1.06); }
+.dish-image-fallback[hidden] { display: none; }
+.dish-card:hover .dish-image { background: var(--green); }
 .dish-info { padding: 20px; flex: 1; display: flex; flex-direction: column; }
 .dish-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
 .dish-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 15px; flex: 1; }
@@ -142,6 +183,7 @@ header {
   width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 8px;
   background: var(--card); cursor: pointer; font-size: 1.05rem; color: var(--gray); transition: all 0.2s;
 }
+.favorite-btn:hover { transform: scale(1.08); border-color: var(--gold); }
 .favorite-btn.active { color: var(--gold); background: #FCF5E3; border-color: var(--gold); }
 .btn-add {
   background: var(--dark); color: var(--gold-light); border: none;
@@ -161,6 +203,7 @@ header {
   z-index: 1000; align-items: center; justify-content: center; padding: 20px;
 }
 .modal.active { display: flex; }
+.modal.active .modal-content { animation: modalReveal 0.3s ease both; }
 .modal-content {
   background: var(--bg); border-radius: var(--radius); max-width: 600px;
   width: 100%; max-height: 90vh; overflow-y: auto; padding: 32px;
@@ -186,6 +229,8 @@ header {
   color: var(--dark); font-weight: 700; cursor: pointer; font-family: inherit;
 }
 .qty-btn:hover { background: var(--green); color: var(--bg); border-color: var(--green); }
+.qty-btn, .remove-btn, .close-btn { transition: transform 0.2s ease, color 0.2s ease, background-color 0.2s ease; }
+.qty-btn:hover, .remove-btn:hover, .close-btn:hover { transform: scale(1.1); }
 .qty-display { font-weight: 700; min-width: 22px; text-align: center; }
 .remove-btn { background: none; border: none; color: #B0442B; cursor: pointer; font-size: 1.15rem; }
 .cart-total {
@@ -252,18 +297,60 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
   transition: all 0.25s; z-index: 99;
 }
 .whatsapp-float:hover { transform: scale(1.08); }
+.whatsapp-float { animation: softPulse 2.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  .container { padding-left: 16px; padding-right: 16px; }
+  .nav { padding: 12px 16px; gap: 12px; }
+  .logo { font-size: 1.05rem; letter-spacing: 1px; gap: 6px; }
+  .logo-icon { font-size: 1.1rem; }
+  .cart-btn { padding: 9px 12px; font-size: 0.85rem; white-space: nowrap; }
   .hero h1 { font-size: 2rem; }
+  .hero { padding: 56px 16px 64px; }
+  .hero p { font-size: 1rem; }
+  .hero-buttons { flex-direction: column; align-items: stretch; max-width: 340px; margin: 0 auto; }
+  .btn-primary, .btn-secondary { justify-content: center; padding: 13px 18px; }
   .section-title { font-size: 1.7rem; }
+  .menu-section { padding: 48px 0; }
+  .section-subtitle { margin-bottom: 30px; font-size: 0.95rem; }
+  .categories { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; padding: 2px 2px 8px; margin-bottom: 24px; scrollbar-width: none; }
+  .categories::-webkit-scrollbar { display: none; }
+  .cat-btn { flex: 0 0 auto; padding: 10px 16px; }
+  .menu-tools { gap: 10px; margin-bottom: 20px; }
+  .search-box, .sort-select, .favorites-toggle { flex: 1 1 100%; width: 100%; min-height: 46px; }
+  .dishes-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .dish-image { height: 150px; font-size: 3.8rem; }
+  .dish-info { padding: 16px; }
+  .dish-footer { gap: 10px; }
+  .btn-add { padding: 10px 14px; }
   .info-bar { gap: 18px; font-size: 0.83rem; }
-  .modal-content { padding: 20px; }
-  .whatsapp-float { width: 48px; height: 48px; font-size: 1.5rem; }
-  .sort-select, .favorites-toggle { flex: 1 1 100%; }
+  .modal { padding: 12px; align-items: flex-start; padding-top: max(12px, env(safe-area-inset-top)); }
+  .modal-content { padding: 20px 16px; max-height: calc(100vh - 24px); border-radius: 10px; }
+  .modal-title { font-size: 1.15rem; }
+  .cart-item { align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+  .cart-item-info { min-width: 0; }
+  .cart-item-name { overflow-wrap: anywhere; }
+  .qty-controls { margin-left: auto; }
+  .cart-total { gap: 12px; font-size: 1.1rem; }
+  .cart-total span:last-child { text-align: right; white-space: nowrap; }
+  .whatsapp-float { width: 48px; height: 48px; right: 16px; bottom: max(16px, env(safe-area-inset-bottom)); font-size: 1.5rem; }
+  footer { padding-left: 16px; padding-right: 16px; margin-top: 48px; }
+}
+
+@media (max-width: 380px) {
+  .logo div { font-size: 0.9rem; }
+  .logo-icon { display: none; }
+  .cart-btn { padding-left: 9px; padding-right: 9px; }
+  .cart-count { font-size: 0.8rem; }
+  .dish-footer { align-items: stretch; flex-direction: column; }
+  .dish-actions { justify-content: flex-end; }
 }
 </style>
-<base target="_blank">
 </head>
 <body>
 
@@ -448,6 +535,8 @@ let MENU = [
   { id: 4, name: 'Garba', category: 'locaux', price: 1500, icon: '🍚', desc: 'Attieke avec thon frit' },
   { id: 5, name: 'Sauce Claire Poisson', category: 'locaux', price: 3000, icon: '🐟', desc: 'Poisson frais en sauce claire' },
   { id: 6, name: 'Riz Gras', category: 'locaux', price: 2000, icon: '🍚', desc: 'Riz cuisiné aux légumes' },
+  { id: 7, name: 'Poulet Yassa', category: 'locaux', price: 4000, icon: '🍗', desc: 'Poulet mariné aux oignons et au citron', tags: ['new'] },
+  { id: 8, name: 'Foutou Sauce Arachide', category: 'locaux', price: 3500, icon: '🥘', desc: 'Foutou servi avec une sauce arachide onctueuse' },
 
   // FAST FOOD
   { id: 10, name: 'Burger Classic', category: 'fastfood', price: 3500, icon: '🍔', desc: 'Pain, steak, fromage, crudités', tags: ['new'] },
@@ -455,12 +544,14 @@ let MENU = [
   { id: 12, name: 'Pizza Pepperoni', category: 'fastfood', price: 7000, icon: '🍕', desc: 'Fromage, pepperoni, origan', tags: ['hot'] },
   { id: 13, name: 'Sandwich Poulet', category: 'fastfood', price: 2500, icon: '🥪', desc: 'Poulet grillé, crudités, sauce' },
   { id: 14, name: 'Hot-Dog', category: 'fastfood', price: 2000, icon: '🌭', desc: 'Saucisse, pain, moutarde' },
+  { id: 15, name: 'Tacos Poulet', category: 'fastfood', price: 3000, icon: '🌯', desc: 'Poulet épicé, fromage, frites et sauce' },
 
   // GRILLADES
   { id: 20, name: 'Poulet Braisé', category: 'grillades', price: 5000, icon: '🍗', desc: 'Poulet entier braisé au feu de bois', tags: ['hot'] },
   { id: 21, name: 'Brochettes de Boeuf', category: 'grillades', price: 3000, icon: '🍖', desc: 'Brochettes tendres et épicées' },
   { id: 22, name: 'Poisson Braisé', category: 'grillades', price: 4000, icon: '🐟', desc: 'Poisson entier grillé' },
   { id: 23, name: 'Cotelettes Agneau', category: 'grillades', price: 6500, icon: '🍖', desc: 'Cotelettes grillées' },
+  { id: 24, name: 'Aloco', category: 'grillades', price: 2000, icon: '🍌', desc: 'Bananes plantain mûres frites et dorées', tags: ['veg'] },
 
   // BOISSONS
   { id: 30, name: 'Jus de Bissap', category: 'boissons', price: 500, icon: '🥤', desc: "Jus naturel d'hibiscus", tags: ['veg'] },
@@ -473,6 +564,7 @@ let MENU = [
   { id: 40, name: 'Beignets', category: 'desserts', price: 500, icon: '🍩', desc: 'Beignets chauds et sucrés', tags: ['veg'] },
   { id: 41, name: 'Gaufres', category: 'desserts', price: 1000, icon: '🧇', desc: 'Gaufres croustillantes', tags: ['veg'] },
   { id: 42, name: 'Salade de Fruits', category: 'desserts', price: 1500, icon: '🍓', desc: 'Fruits frais de saison', tags: ['veg'] },
+  { id: 43, name: 'Milkshake Vanille', category: 'desserts', price: 2000, icon: '🥤', desc: 'Milkshake onctueux à la vanille', tags: ['new'] },
 ];
 
 const CATEGORIES = [
@@ -493,6 +585,37 @@ let searchTerm = '';
 let sortMode = 'popular';
 let favoritesOnly = false;
 let favorites = [];
+
+const DISH_IMAGES = {
+  1: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=85',
+  2: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=900&q=85',
+  3: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=85',
+  4: 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=900&q=85',
+  5: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=85',
+  6: 'https://images.unsplash.com/photo-1596560548464-f010549b84d7?auto=format&fit=crop&w=900&q=85',
+  7: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=900&q=85',
+  8: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=900&q=85',
+  10: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=85',
+  11: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85',
+  12: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85',
+  13: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85',
+  14: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85',
+  15: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85',
+  20: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=900&q=85',
+  21: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=85',
+  22: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=85',
+  23: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=900&q=85',
+  24: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=85',
+  30: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85',
+  31: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=85',
+  32: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85',
+  33: 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?auto=format&fit=crop&w=900&q=85',
+  34: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=900&q=85',
+  40: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=85',
+  41: 'https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=900&q=85',
+  42: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=900&q=85',
+  43: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=900&q=85'
+};
 
 // ================================================================
 // INITIALISATION
@@ -612,7 +735,10 @@ function renderDishes() {
 
     return `
       <div class="dish-card">
-        <div class="dish-image">${dish.icon}</div>
+        <div class="dish-image">
+          <img src="${DISH_IMAGES[dish.id] || ''}" alt="${dish.name}" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+          <span class="dish-image-fallback" hidden>${dish.icon}</span>
+        </div>
         <div class="dish-info">
           <div class="dish-name">${dish.name}</div>
           <div class="dish-desc">${dish.desc}</div>
