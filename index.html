@@ -141,7 +141,6 @@ header { background: var(--dark); color: var(--bg); position: sticky; top: 0; z-
 .success-message p { color: var(--gray); margin-bottom: 20px; }
 .order-number { background: #FCF5E3; padding: 15px; border-radius: 8px; font-weight: 700; font-size: 1.2rem; color: var(--green); margin: 20px 0; border: 1px solid var(--gold-light); }
 
-/* ERROR BOX pour diagnostic */
 .error-box { background: #FBEDE8; color: #B0442B; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #B0442B; font-size: 0.9rem; font-family: monospace; word-break: break-word; }
 .error-box strong { display: block; margin-bottom: 5px; font-family: inherit; }
 .btn-retry { width: 100%; background: var(--gold); color: var(--dark); border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; font-family: inherit; font-size: 0.95rem; }
@@ -316,10 +315,9 @@ const CONFIG = {
   WHATSAPP_NUMBER: '22584827766',
   DELIVERY_FEE: 1000,
   FREE_DELIVERY_FROM: 10000,
-  REQUEST_TIMEOUT: 15000 // 15 secondes
+  REQUEST_TIMEOUT: 15000
 };
 
-// ✅ HEADERS NGROK
 const NGROK_HEADERS = {
   'Content-Type': 'application/json',
   'ngrok-skip-browser-warning': 'true'
@@ -377,7 +375,7 @@ let searchTerm = '';
 let sortMode = 'popular';
 let favoritesOnly = false;
 let favorites = [];
-let lastOrderData = null; // pour bouton "Réessayer"
+let lastOrderData = null;
 
 const DISH_IMAGES = {
   1: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=85',
@@ -590,7 +588,6 @@ function openOrder() {
   if (cart.length === 0) { showNotification('Ajoutez des plats !'); return; }
   closeCart();
   document.getElementById('orderTotal').textContent = getCartTotal().toLocaleString() + ' FCFA';
-  // Réinitialiser le formulaire
   document.getElementById('orderContent').innerHTML = `
     <form id="orderForm" onsubmit="submitOrder(event)">
       <div class="form-group"><label>Nom complet *</label><input type="text" id="customerName" required></div>
@@ -613,9 +610,6 @@ function openOrder() {
 }
 function closeOrder() { document.getElementById('orderModal').classList.remove('active'); }
 
-// ================================================================
-// ENVOI DE LA COMMANDE — VERSION AMÉLIORÉE
-// ================================================================
 async function submitOrder(event) {
   event.preventDefault();
 
@@ -633,7 +627,7 @@ async function submitOrder(event) {
     order_number: 'CMD-' + Date.now().toString().slice(-6)
   };
 
-  lastOrderData = orderData; // Sauvegarder pour "Réessayer"
+  lastOrderData = orderData;
 
   await sendOrder(orderData);
 }
@@ -642,7 +636,6 @@ async function sendOrder(orderData) {
   const submitBtn = document.getElementById('submitBtn');
   if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '⏳ Envoi en cours...'; }
 
-  // Timeout de 15 secondes
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
 
@@ -660,7 +653,6 @@ async function sendOrder(orderData) {
     });
 
     clearTimeout(timeoutId);
-
     console.log('📥 Réponse HTTP :', response.status, response.statusText);
 
     if (response.ok) {
@@ -675,7 +667,6 @@ async function sendOrder(orderData) {
     clearTimeout(timeoutId);
     console.error('❌ ERREUR COMPLÈTE :', error);
 
-    // Message d'erreur précis
     let errorMsg = error.message || 'Erreur inconnue';
     let errorType = 'Erreur réseau';
 
@@ -694,18 +685,59 @@ async function sendOrder(orderData) {
   }
 }
 
+// ✅ NOUVELLE FONCTION : affiche le bouton WhatsApp pour activer le suivi
 function showSuccess(orderData) {
   const c = document.getElementById('orderContent');
+
+  // Message pré-rempli que le client va envoyer au bot
+  const waMessage = encodeURIComponent(
+    `Bonjour RICHMOND FOOD 🍽️\n\n` +
+    `Je viens de passer la commande *${orderData.order_number}*.\n\n` +
+    `👤 Nom : ${orderData.customer_name}\n` +
+    `📞 Téléphone : ${orderData.customer_phone}\n` +
+    `💰 Total : ${orderData.total.toLocaleString()} FCFA\n\n` +
+    `Merci de me confirmer et de me tenir informé du suivi.`
+  );
+  const waUrl = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waMessage}`;
+
   c.innerHTML = `
-    <div class="success-message">
-      <div class="success-icon">🎉</div>
-      <h3>Commande confirmée !</h3>
-      <p>Merci ${escapeHtml(orderData.customer_name)} !</p>
-      <div class="order-number">N° ${escapeHtml(orderData.order_number)}</div>
-      <p>Vous recevrez une confirmation par WhatsApp<br>dans les prochaines minutes.</p>
-      <p style="margin-top:20px;font-weight:700;">Total : ${orderData.total.toLocaleString()} FCFA</p>
-      <button class="btn-submit" onclick="finishOrder()" style="margin-top:25px;">🏠 Retour à l'accueil</button>
+    <div style="padding:10px;">
+      <div style="text-align:center;font-size:4rem;margin-bottom:15px;">🎉</div>
+      <h3 style="text-align:center;color:var(--green);margin-bottom:10px;">Commande enregistrée !</h3>
+      <p style="text-align:center;color:var(--gray);">N° <strong>${escapeHtml(orderData.order_number)}</strong></p>
+      <p style="text-align:center;color:var(--gray);">Merci ${escapeHtml(orderData.customer_name)} !</p>
+
+      <div style="background:#FCF5E3; border-left:4px solid #C89B3C; padding:18px; border-radius:10px; margin:20px 0;">
+        <p style="color:#1E2B22; font-weight:700; margin-bottom:10px; font-size:1.05rem;">
+          📱 DERNIÈRE ÉTAPE IMPORTANTE
+        </p>
+        <p style="color:#7A7A72; font-size:0.9rem; margin-bottom:15px; line-height:1.5;">
+          Pour recevoir la <strong>confirmation</strong> et le <strong>suivi de votre commande</strong> 
+          sur WhatsApp, cliquez sur le bouton vert ci-dessous puis appuyez sur 
+          <strong>"Envoyer"</strong> dans WhatsApp. Le message est déjà pré-rempli.
+        </p>
+
+        <a href="${waUrl}" target="_blank"
+           style="display:block; background:#25D366; color:white; padding:16px; border-radius:8px; 
+                  text-decoration:none; font-weight:700; font-size:1.05rem; text-align:center;
+                  box-shadow: 0 4px 12px rgba(37,211,102,0.4);">
+          ✅ Activer mon suivi WhatsApp
+        </a>
+      </div>
+
+      <p style="text-align:center;font-weight:700;font-size:1.15rem;color:var(--green);margin:20px 0;">
+        Total : ${orderData.total.toLocaleString()} FCFA
+      </p>
+
+      <p style="color:var(--gray); font-size:0.82rem; text-align:center; margin-top:10px;">
+        💡 Sans ce clic, WhatsApp ne nous autorise pas à vous envoyer de messages.
+      </p>
+
+      <button class="btn-submit" onclick="finishOrder()" style="margin-top:25px;">
+        🏠 Retour à l'accueil
+      </button>
     </div>`;
+
   cart = []; saveCart(); updateCartCount();
 }
 
@@ -739,7 +771,6 @@ async function retryOrder() {
     console.warn('Pas de commande en attente');
     return;
   }
-  // Restaurer le formulaire original
   const c = document.getElementById('orderContent');
   c.innerHTML = `
     <form id="orderForm" onsubmit="submitOrder(event)">
@@ -759,7 +790,6 @@ async function retryOrder() {
       <div class="cart-total"><span>Total à payer :</span><span id="orderTotal">${lastOrderData.total.toLocaleString()} FCFA</span></div>
       <button type="submit" class="btn-submit" id="submitBtn">✅ Confirmer la commande</button>
     </form>`;
-  // Relancer automatiquement
   setTimeout(() => sendOrder(lastOrderData), 300);
 }
 
