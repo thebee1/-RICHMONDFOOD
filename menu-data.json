@@ -1,12 +1,20 @@
 {
   "restaurant": "RICHMOND FOOD",
   "webhook_url": "https://deploy-showoff-engaging.ngrok-free.dev/webhook/restaurant-order",
+  "webhook": {
+    "get_orders": "https://deploy-showoff-engaging.ngrok-free.dev/webhook/kitchen-orders",
+    "update_status": "https://deploy-showoff-engaging.ngrok-free.dev/webhook/kitchen-update"
+  },
   "currency": "FCFA",
   "delivery": {
     "fee": 1000,
     "freeFrom": 10000,
     "zones": ["Cocody", "Angre", "Plateau", "Marcory", "Yopougon"]
   },
+  "refresh_interval_seconds": 15,
+  "sound_alerts": true,
+  "auto_refresh": true,
+  "urgent_after_minutes": 15,
   "categories": [
     { "id": "all", "name": "Tous" },
     { "id": "locaux", "name": "Plats Locaux" },
