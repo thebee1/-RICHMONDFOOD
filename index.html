@@ -131,6 +131,9 @@ header { background: var(--dark); color: var(--bg); position: sticky; top: 0; z-
 .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.92rem; }
 .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; font-size: 1rem; transition: border 0.25s; background: var(--card); font-family: inherit; color: var(--dark); }
 .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--gold); }
+.form-group input.input-error { border-color: #B0442B; background: #FDF5F3; }
+.form-hint { font-size: 0.8rem; color: var(--gray); margin-top: 4px; }
+.form-hint.error { color: #B0442B; font-weight: 700; }
 .btn-submit { width: 100%; background: var(--green); color: var(--bg); border: none; padding: 15px; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 20px; transition: all 0.25s; font-family: inherit; letter-spacing: 1px; }
 .btn-submit:hover { background: var(--dark); color: var(--gold-light); }
 .btn-submit:disabled { background: var(--gray); cursor: not-allowed; color: #fff; }
@@ -265,7 +268,8 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
         </div>
         <div class="form-group">
           <label>Téléphone (WhatsApp) *</label>
-          <input type="tel" id="customerPhone" required>
+          <input type="tel" id="customerPhone" required placeholder="Ex: 07 11 07 00 01">
+          <div class="form-hint" id="phoneHint">Format : 07/05/01 + 8 chiffres</div>
         </div>
         <div class="form-group">
           <label>Adresse de livraison *</label>
@@ -417,6 +421,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadCart();
   document.getElementById('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value.trim().toLowerCase(); renderDishes(); });
   document.getElementById('sortSelect').addEventListener('change', (e) => { sortMode = e.target.value; renderDishes(); });
+  // Validation en temps réel du téléphone
+  const phoneInput = document.getElementById('customerPhone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', validatePhoneLive);
+    phoneInput.addEventListener('blur', validatePhoneLive);
+  }
 });
 
 async function loadMenuData() {
@@ -591,7 +601,11 @@ function openOrder() {
   document.getElementById('orderContent').innerHTML = `
     <form id="orderForm" onsubmit="submitOrder(event)">
       <div class="form-group"><label>Nom complet *</label><input type="text" id="customerName" required></div>
-      <div class="form-group"><label>Téléphone (WhatsApp) *</label><input type="tel" id="customerPhone" required></div>
+      <div class="form-group">
+        <label>Téléphone (WhatsApp) *</label>
+        <input type="tel" id="customerPhone" required placeholder="Ex: 07 11 07 00 01">
+        <div class="form-hint" id="phoneHint">Format : 07/05/01 + 8 chiffres</div>
+      </div>
       <div class="form-group"><label>Adresse de livraison *</label><textarea id="customerAddress" required rows="3"></textarea></div>
       <div class="form-group">
         <label>Mode de paiement *</label>
@@ -607,18 +621,131 @@ function openOrder() {
       <button type="submit" class="btn-submit" id="submitBtn">✅ Confirmer la commande</button>
     </form>`;
   document.getElementById('orderModal').classList.add('active');
+  // Relance la validation live sur le nouveau champ
+  const phoneInput = document.getElementById('customerPhone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', validatePhoneLive);
+    phoneInput.addEventListener('blur', validatePhoneLive);
+  }
 }
 function closeOrder() { document.getElementById('orderModal').classList.remove('active'); }
 
+// ================================================================
+// ✅ FONCTION DE NORMALISATION DU NUMÉRO (NOUVELLE)
+// ================================================================
+function normalizeIvorianPhone(raw) {
+  if (!raw) return { valid: false, normalized: '', clean: '' };
+  const clean = String(raw).replace(/\D/g, '');
+
+  // Format 1 : 10 chiffres local (ex: 0711070001, 0501020304, 0101020304)
+  if (/^0(1|5|7)\d{8}$/.test(clean)) {
+    return { valid: true, normalized: '225' + clean, clean };
+  }
+  // Format 2 : 13 chiffres international complet (ex: 2250711070001)
+  if (/^2250(1|5|7)\d{8}$/.test(clean)) {
+    return { valid: true, normalized: clean, clean };
+  }
+  // Format 3 : 12 chiffres sans le 0 après 225 (ex: 225711070001) — à corriger
+  if (/^225(1|5|7)\d{8}$/.test(clean)) {
+    return { valid: true, normalized: '2250' + clean.substring(3), clean };
+  }
+
+  return { valid: false, normalized: '', clean };
+}
+
+// ================================================================
+// ✅ VALIDATION EN TEMPS RÉEL (feedback visuel)
+// ================================================================
+function validatePhoneLive(event) {
+  const input = event.target;
+  const hint = document.getElementById('phoneHint');
+  if (!input || !hint) return;
+
+  const value = input.value.trim();
+  if (!value) {
+    input.classList.remove('input-error');
+    hint.className = 'form-hint';
+    hint.textContent = 'Format : 07/05/01 + 8 chiffres';
+    return;
+  }
+
+  const result = normalizeIvorianPhone(value);
+  if (result.valid) {
+    input.classList.remove('input-error');
+    hint.className = 'form-hint';
+    hint.textContent = `✅ Numéro valide → ${result.normalized}`;
+  } else {
+    input.classList.add('input-error');
+    hint.className = 'form-hint error';
+    hint.textContent = '❌ Numéro invalide. Ex: 07 11 07 00 01';
+  }
+}
+
+// ================================================================
+// ✅ FONCTION submitOrder ENTIÈREMENT CORRIGÉE
+// ================================================================
 async function submitOrder(event) {
   event.preventDefault();
 
+  // 1) Récupération des champs
+  const customerName = document.getElementById('customerName').value.trim();
+  const customerAddress = document.getElementById('customerAddress').value.trim();
+  const paymentMethod = document.getElementById('paymentMethod').value.trim();
+  const notes = document.getElementById('notes').value.trim();
+  const rawPhone = document.getElementById('customerPhone').value.trim();
+
+  // 2) Validation du nom
+  if (customerName.length < 2) {
+    alert("❌ Veuillez entrer un nom valide (au moins 2 caractères).");
+    document.getElementById('customerName').focus();
+    return;
+  }
+
+  // 3) Validation du téléphone ivoirien
+  const phoneResult = normalizeIvorianPhone(rawPhone);
+  if (!phoneResult.valid) {
+    alert(
+      "❌ Numéro WhatsApp invalide.\n\n" +
+      "Entrez un numéro ivoirien valide :\n" +
+      "Exemple : 07 11 07 00 01\n\n" +
+      "Formats acceptés :\n" +
+      "  • 07 XX XX XX XX\n" +
+      "  • 05 XX XX XX XX\n" +
+      "  • 01 XX XX XX XX\n\n" +
+      "⚠️ Ce numéro doit être un compte WhatsApp ACTIF\n" +
+      "pour recevoir les notifications de suivi."
+    );
+    document.getElementById('customerPhone').focus();
+    return;
+  }
+
+  // 4) Validation de l'adresse
+  if (customerAddress.length < 5) {
+    alert("❌ Veuillez entrer une adresse de livraison complète (au moins 5 caractères).");
+    document.getElementById('customerAddress').focus();
+    return;
+  }
+
+  // 5) Validation du paiement
+  if (!paymentMethod) {
+    alert("❌ Veuillez choisir un mode de paiement.");
+    document.getElementById('paymentMethod').focus();
+    return;
+  }
+
+  // 6) Validation du panier
+  if (!cart || cart.length === 0) {
+    alert("❌ Votre panier est vide.");
+    return;
+  }
+
+  // 7) Construction de la commande avec le numéro NORMALISÉ
   const orderData = {
-    customer_name: document.getElementById('customerName').value.trim(),
-    customer_phone: document.getElementById('customerPhone').value.trim(),
-    customer_address: document.getElementById('customerAddress').value.trim(),
-    payment_method: document.getElementById('paymentMethod').value.trim(),
-    notes: document.getElementById('notes').value.trim(),
+    customer_name: customerName,
+    customer_phone: phoneResult.normalized,
+    customer_address: customerAddress,
+    payment_method: paymentMethod,
+    notes: notes,
     items: cart.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
     subtotal: getCartSubtotal(),
     delivery_fee: getDeliveryFee(),
@@ -629,6 +756,13 @@ async function submitOrder(event) {
 
   lastOrderData = orderData;
 
+  // Logs de debug
+  console.log('📞 Numéro brut :', rawPhone);
+  console.log('📞 Numéro nettoyé :', phoneResult.clean);
+  console.log('📞 Numéro envoyé à n8n :', phoneResult.normalized);
+  console.log('📦 Commande complète :', orderData);
+
+  // 8) Envoi
   await sendOrder(orderData);
 }
 
@@ -685,11 +819,9 @@ async function sendOrder(orderData) {
   }
 }
 
-// ✅ NOUVELLE FONCTION : affiche le bouton WhatsApp pour activer le suivi
 function showSuccess(orderData) {
   const c = document.getElementById('orderContent');
 
-  // Message pré-rempli que le client va envoyer au bot
   const waMessage = encodeURIComponent(
     `Bonjour RICHMOND FOOD 🍽️\n\n` +
     `Je viens de passer la commande *${orderData.order_number}*.\n\n` +
@@ -775,7 +907,11 @@ async function retryOrder() {
   c.innerHTML = `
     <form id="orderForm" onsubmit="submitOrder(event)">
       <div class="form-group"><label>Nom complet *</label><input type="text" id="customerName" value="${escapeHtml(lastOrderData.customer_name)}" required></div>
-      <div class="form-group"><label>Téléphone (WhatsApp) *</label><input type="tel" id="customerPhone" value="${escapeHtml(lastOrderData.customer_phone)}" required></div>
+      <div class="form-group">
+        <label>Téléphone (WhatsApp) *</label>
+        <input type="tel" id="customerPhone" value="${escapeHtml(lastOrderData.customer_phone)}" required>
+        <div class="form-hint" id="phoneHint">Format : 07/05/01 + 8 chiffres</div>
+      </div>
       <div class="form-group"><label>Adresse de livraison *</label><textarea id="customerAddress" required rows="3">${escapeHtml(lastOrderData.customer_address)}</textarea></div>
       <div class="form-group">
         <label>Mode de paiement *</label>
@@ -790,6 +926,11 @@ async function retryOrder() {
       <div class="cart-total"><span>Total à payer :</span><span id="orderTotal">${lastOrderData.total.toLocaleString()} FCFA</span></div>
       <button type="submit" class="btn-submit" id="submitBtn">✅ Confirmer la commande</button>
     </form>`;
+  const phoneInput = document.getElementById('customerPhone');
+  if (phoneInput) {
+    phoneInput.addEventListener('input', validatePhoneLive);
+    phoneInput.addEventListener('blur', validatePhoneLive);
+  }
   setTimeout(() => sendOrder(lastOrderData), 300);
 }
 
