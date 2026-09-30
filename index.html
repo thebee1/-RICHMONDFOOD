@@ -1295,17 +1295,11 @@ async function sendOrder(orderData) {
 }
 
 // ============================================================
-// ✅ FONCTION showSuccess AVEC BOUTON D'ACTIVATION WHATSAPP
+// FONCTION showSuccess — SIMPLIFIÉE
+// Affiche juste un message de succès + bouton Confirmer
 // ============================================================
 function showSuccess(orderData) {
   const c = document.getElementById('orderContent');
-
-  // Message pré-rempli pour activer le suivi WhatsApp
-  const waText = encodeURIComponent(
-    'Bonjour RICHMOND FOOD, je viens de passer la commande ' + orderData.order_number +
-    '. Merci de me confirmer et de me tenir informé du suivi.'
-  );
-  const waUrl = 'https://wa.me/' + CONFIG.WHATSAPP_NUMBER + '?text=' + waText;
 
   c.innerHTML = `
     <div style="padding:10px;">
@@ -1332,48 +1326,8 @@ function showSuccess(orderData) {
         </div>
       </div>
 
-      <div style="background:#FCF5E3; border-left:4px solid #C89B3C; padding:18px; border-radius:10px; margin:20px 0;">
-        <p style="color:#1E2B22; font-weight:700; margin-bottom:12px; font-size:1.05rem;">
-          📱 Dernière étape — Activez votre suivi WhatsApp
-        </p>
-        <p style="color:#7A7A72; font-size:0.9rem; line-height:1.6; margin-bottom:15px;">
-          Pour recevoir la <strong>confirmation</strong> et le <strong>suivi de votre commande</strong> 
-          (préparation, en route, livrée), cliquez sur le bouton ci-dessous puis appuyez sur 
-          <strong>« Envoyer »</strong> dans WhatsApp.
-        </p>
-        <p style="color:#7A7A72; font-size:0.85rem; line-height:1.5; margin-bottom:15px; padding:10px; background:#FFF8E7; border-radius:6px;">
-          ℹ️ <strong>Pourquoi cette étape ?</strong> WhatsApp demande qu'un premier message soit envoyé 
-          pour autoriser les notifications automatiques. C'est une simple formalité.
-        </p>
-
-        <a href="${waUrl}" target="_blank"
-           style="display:block; background:#25D366; color:white; padding:16px; border-radius:8px; 
-                  text-decoration:none; font-weight:700; font-size:1.05rem; text-align:center;
-                  box-shadow: 0 4px 15px rgba(37,211,102,0.4);">
-          💬 Activer mon suivi WhatsApp
-        </a>
-      </div>
-
-      <div style="background:#EAF3EC; border-left:4px solid #2E5B3F; padding:15px; border-radius:10px; margin:20px 0;">
-        <p style="color:#1E2B22; font-weight:700; margin-bottom:8px; font-size:0.95rem;">
-          ✨ Une fois activé, vous recevrez :
-        </p>
-        <div style="font-size:0.9rem; color:#1E2B22; line-height:2;">
-          ⏳ Commande reçue<br>
-          👨‍🍳 En préparation<br>
-          ✅ Prête<br>
-          🛵 En route<br>
-          🎉 Livrée
-        </div>
-      </div>
-
-      <p style="color:var(--gray); font-size:0.85rem; text-align:center; margin-bottom:20px; line-height:1.6;">
-        💡 Sans ce clic, WhatsApp ne nous autorise pas à vous envoyer de messages.<br>
-        Contact : <strong style="color:#1E2B22;">+225 84 82 77 66</strong>
-      </p>
-
       <button class="btn-submit" onclick="finishOrder()" style="margin-top:10px;">
-        Retour à l'accueil
+        Confirmer la commande
       </button>
     </div>`;
 
