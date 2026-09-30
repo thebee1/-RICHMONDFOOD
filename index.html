@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RICHMOND FOOD - Restaurant &amp; Livraison Abidjan</title>
 <meta name="description" content="Commandez vos plats preferes a Abidjan. Livraison rapide. Paiement Mobile Money.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Georgia', 'Times New Roman', serif; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Caveat', 'Comic Sans MS', 'Segoe Script', cursive; font-weight: 600; letter-spacing: 0.3px; }
 :root {
   --bg: #FAF7F0;
   --card: #FFFFFF;
@@ -19,83 +22,78 @@
   --shadow: 0 2px 12px rgba(30,43,34,0.08);
   --radius: 14px;
 }
-body { background: var(--bg); color: var(--dark); line-height: 1.65; overflow-x: hidden; }
+body { background: var(--bg); color: var(--dark); line-height: 1.5; overflow-x: hidden; font-size: 19px; }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-h1, h2, h3 { letter-spacing: 0.5px; }
+h1, h2, h3 { letter-spacing: 0.5px; font-weight: 700; }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes heroReveal { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes modalReveal { from { opacity: 0; transform: translateY(18px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes slideUp { from { opacity: 0; transform: translate(-50%, 14px); } to { opacity: 1; transform: translate(-50%, 0); } }
 @keyframes softPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(200,155,60,0); } 50% { box-shadow: 0 0 0 6px rgba(200,155,60,0.18); } }
 
 header { background: var(--dark); color: var(--bg); position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--gold); }
 .nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; }
-.logo { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 700; letter-spacing: 2px; }
+.logo { display: flex; align-items: center; gap: 10px; font-size: 2rem; font-weight: 700; letter-spacing: 3px; }
 .logo span { color: var(--gold); }
-.cart-btn { background: transparent; color: var(--gold); border: 2px solid var(--gold); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: all 0.25s; font-family: inherit; font-size: 0.95rem; }
+.cart-btn { background: transparent; color: var(--gold); border: 2px solid var(--gold); padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: all 0.25s; font-family: inherit; font-size: 1.15rem; }
 .cart-btn:hover { background: var(--gold); color: var(--dark); }
-.cart-count { background: var(--gold); color: var(--dark); border-radius: 6px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; }
+.cart-count { background: var(--gold); color: var(--dark); border-radius: 6px; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.95rem; font-weight: 700; }
 .cart-btn:hover .cart-count { background: var(--dark); color: var(--gold); }
 
 .hero { background-color: var(--dark); background-image: linear-gradient(90deg, rgba(30,43,34,0.94), rgba(30,43,34,0.68)), url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1800&q=88'); background-position: center; background-size: cover; color: var(--bg); padding: 90px 24px 100px; text-align: center; position: relative; overflow: hidden; }
 .hero > .container { position: relative; z-index: 1; }
 .hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 120%, rgba(200,155,60,0.25), transparent 60%); pointer-events: none; }
-.hero h1 { font-size: 3rem; margin-bottom: 18px; color: var(--gold-light); }
-.hero p { font-size: 1.15rem; margin-bottom: 35px; color: rgba(250,247,240,0.85); }
+.hero h1 { font-size: 4rem; margin-bottom: 18px; color: var(--gold-light); font-weight: 700; }
+.hero p { font-size: 1.4rem; margin-bottom: 35px; color: rgba(250,247,240,0.9); }
 .hero h1, .hero p, .hero-buttons { animation: heroReveal 0.7s ease both; }
 .hero p { animation-delay: 0.12s; }
 .hero-buttons { animation-delay: 0.24s; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-.btn-primary, .btn-secondary { padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; font-family: inherit; letter-spacing: 1px; }
+.btn-primary, .btn-secondary { padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 1.2rem; transition: all 0.25s; display: inline-flex; align-items: center; gap: 8px; border: none; cursor: pointer; font-family: inherit; letter-spacing: 1px; }
 .btn-primary { background: var(--gold); color: var(--dark); }
 .btn-secondary { background: transparent; color: var(--gold-light); border: 2px solid var(--gold-light); }
 .btn-primary:hover { background: var(--gold-light); }
 .btn-secondary:hover { background: var(--gold-light); color: var(--dark); border-color: var(--gold-light); }
 
-.info-bar { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 20px; display: flex; justify-content: center; gap: 45px; flex-wrap: wrap; font-size: 0.92rem; }
+.info-bar { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 20px; display: flex; justify-content: center; gap: 45px; flex-wrap: wrap; font-size: 1.15rem; }
 .info-item { display: flex; align-items: center; gap: 8px; color: var(--dark); }
-.info-item span:first-child { font-size: 1.1rem; }
 
 .menu-section { padding: 70px 0; }
-.section-title { text-align: center; font-size: 2.4rem; margin-bottom: 12px; }
+.section-title { text-align: center; font-size: 3.2rem; margin-bottom: 12px; font-weight: 700; }
 .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 14px auto 0; }
-.section-subtitle { text-align: center; color: var(--gray); margin-bottom: 45px; font-size: 1.05rem; }
+.section-subtitle { text-align: center; color: var(--gray); margin-bottom: 45px; font-size: 1.35rem; }
 .categories { display: flex; justify-content: center; gap: 12px; margin-bottom: 35px; flex-wrap: wrap; }
 .menu-tools { display: flex; gap: 12px; margin: 0 auto 26px; max-width: 820px; flex-wrap: wrap; align-items: center; }
-.search-box, .sort-select { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 15px; font-size: 0.95rem; color: var(--dark); font-family: inherit; }
+.search-box, .sort-select { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 15px; font-size: 1.15rem; color: var(--dark); font-family: inherit; font-weight: 600; }
 .search-box { flex: 1 1 280px; min-width: 0; }
 .sort-select { flex: 0 1 220px; }
-.search-box:focus, .sort-select:focus { outline: none; border-color: var(--green); }
-.favorites-toggle { border: 1px solid var(--green); background: var(--card); color: var(--green); border-radius: 8px; padding: 11px 16px; cursor: pointer; font-weight: 700; font-family: inherit; font-size: 0.95rem; transition: all 0.25s; }
+.search-box:focus, .sort-select:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px rgba(46,91,63,0.12); }
+.favorites-toggle { border: 1px solid var(--green); background: var(--card); color: var(--green); border-radius: 8px; padding: 10px 18px; cursor: pointer; font-weight: 700; font-family: inherit; font-size: 1.15rem; transition: all 0.25s; }
 .favorites-toggle.active, .favorites-toggle:hover { background: var(--green); color: var(--bg); }
-.results-note { color: var(--gray); font-size: 0.88rem; margin: -10px 0 20px; text-align: center; }
-.cat-btn { padding: 10px 22px; border: 1px solid var(--line); background: var(--card); color: var(--dark); border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.25s; font-family: inherit; font-size: 0.92rem; }
-.cat-btn:hover { border-color: var(--green); color: var(--green); }
+.results-note { color: var(--gray); font-size: 1.1rem; margin: -10px 0 20px; text-align: center; }
+.cat-btn { padding: 8px 22px; border: 1px solid var(--line); background: var(--card); color: var(--dark); border-radius: 8px; cursor: pointer; font-weight: 700; transition: all 0.25s; font-family: inherit; font-size: 1.15rem; }
+.cat-btn:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
 .cat-btn.active { background: var(--green); color: var(--bg); border-color: var(--green); }
-.cat-btn:hover, .favorites-toggle:hover { transform: translateY(-2px); }
-.search-box:focus, .sort-select:focus { box-shadow: 0 0 0 3px rgba(46,91,63,0.12); }
 
-.dishes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; }
+.dishes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 28px; }
 .dish-card { background: var(--card); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; display: flex; flex-direction: column; animation: fadeUp 0.5s ease both; cursor: pointer; }
 .dish-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 .dish-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 10px 24px rgba(30,43,34,0.14); }
-.dish-image { height: 190px; background: var(--dark); display: flex; align-items: center; justify-content: center; font-size: 4.5rem; border-bottom: 3px solid var(--gold); transition: transform 0.35s ease, background-color 0.35s ease; }
+.dish-image { height: 190px; background: var(--dark); display: flex; align-items: center; justify-content: center; border-bottom: 3px solid var(--gold); transition: transform 0.35s ease, background-color 0.35s ease; overflow: hidden; }
 .dish-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform 0.5s ease; }
 .dish-card:hover .dish-image img { transform: scale(1.06); }
-.dish-image-fallback[hidden] { display: none; }
 .dish-card:hover .dish-image { background: var(--green); }
 .dish-info { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-.dish-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
-.dish-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 15px; flex: 1; }
+.dish-name { font-size: 1.6rem; font-weight: 700; margin-bottom: 4px; }
+.dish-desc { color: var(--gray); font-size: 1.1rem; margin-bottom: 12px; flex: 1; }
 .dish-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 15px; border-top: 1px solid var(--line); }
-.dish-price { font-size: 1.25rem; font-weight: 700; color: var(--green); }
+.dish-price { font-size: 1.5rem; font-weight: 700; color: var(--green); }
 .dish-actions { display: flex; align-items: center; gap: 8px; }
-.favorite-btn { width: 36px; height: 36px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); cursor: pointer; font-size: 1.05rem; color: var(--gray); transition: all 0.2s; }
+.favorite-btn { width: 38px; height: 38px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); cursor: pointer; font-size: 1.2rem; color: var(--gray); transition: all 0.2s; font-family: inherit; }
 .favorite-btn:hover { transform: scale(1.08); border-color: var(--gold); }
 .favorite-btn.active { color: var(--gold); background: #FCF5E3; border-color: var(--gold); }
-.btn-add { background: var(--dark); color: var(--gold-light); border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; transition: all 0.25s; font-family: inherit; font-size: 0.9rem; }
+.btn-add { background: var(--dark); color: var(--gold-light); border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; transition: all 0.25s; font-family: inherit; font-size: 1.15rem; }
 .btn-add:hover { background: var(--green); color: var(--bg); }
-.badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; margin-right: 5px; letter-spacing: 0.5px; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 6px; font-size: 0.95rem; font-weight: 700; margin-right: 5px; letter-spacing: 0.5px; }
 .badge-hot { background: #FBEDE8; color: #B0442B; }
 .badge-new { background: #EAF3EC; color: var(--green); }
 .badge-veg { background: #F3EFE2; color: #8A6D1F; }
@@ -105,77 +103,75 @@ header { background: var(--dark); color: var(--bg); position: sticky; top: 0; z-
 .modal.active .modal-content { animation: modalReveal 0.3s ease both; }
 .modal-content { background: var(--bg); border-radius: var(--radius); max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 32px; border-top: 4px solid var(--gold); }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
-.modal-title { font-size: 1.4rem; font-weight: 700; }
-.close-btn { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--gray); }
+.modal-title { font-size: 1.8rem; font-weight: 700; }
+.close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray); font-family: inherit; }
 .dish-detail-image { width: 100%; height: 260px; object-fit: cover; border-radius: 10px; background: var(--dark); display: block; }
 .dish-detail-body { padding-top: 20px; }
-.dish-detail-body h3 { font-size: 1.6rem; margin-bottom: 8px; }
-.dish-detail-description { color: var(--gray); margin: 12px 0 18px; }
+.dish-detail-body h3 { font-size: 2.1rem; margin-bottom: 8px; font-weight: 700; }
+.dish-detail-description { color: var(--gray); margin: 12px 0 18px; font-size: 1.15rem; }
 .dish-detail-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 20px; }
-.dish-detail-category { color: var(--gray); font-size: 0.9rem; }
-.dish-detail-price { color: var(--green); font-size: 1.35rem; font-weight: 700; white-space: nowrap; }
+.dish-detail-category { color: var(--gray); font-size: 1.1rem; }
+.dish-detail-price { color: var(--green); font-size: 1.6rem; font-weight: 700; white-space: nowrap; }
 .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--line); }
 .cart-item-info { flex: 1; }
-.cart-item-name { font-weight: 700; margin-bottom: 4px; }
-.cart-item-price { color: var(--green); font-weight: 700; }
+.cart-item-name { font-weight: 700; margin-bottom: 4px; font-size: 1.2rem; }
+.cart-item-price { color: var(--green); font-weight: 700; font-size: 1.15rem; }
 .qty-controls { display: flex; align-items: center; gap: 10px; }
-.qty-btn { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--dark); font-weight: 700; cursor: pointer; font-family: inherit; }
+.qty-btn { width: 30px; height: 30px; border-radius: 6px; border: 1px solid var(--line); background: var(--card); color: var(--dark); font-weight: 700; cursor: pointer; font-family: inherit; font-size: 1.1rem; }
 .qty-btn:hover { background: var(--green); color: var(--bg); border-color: var(--green); }
-.qty-btn:hover, .remove-btn:hover, .close-btn:hover { transform: scale(1.1); }
-.qty-display { font-weight: 700; min-width: 22px; text-align: center; }
-.remove-btn { background: none; border: none; color: #B0442B; cursor: pointer; font-size: 1.15rem; }
-.cart-total { display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 700; margin: 25px 0; padding-top: 20px; border-top: 2px solid var(--gold); }
-.empty-cart { text-align: center; padding: 40px 0; color: var(--gray); }
+.qty-display { font-weight: 700; min-width: 22px; text-align: center; font-size: 1.2rem; }
+.remove-btn { background: none; border: none; color: #B0442B; cursor: pointer; font-size: 1.05rem; font-weight: 700; font-family: inherit; }
+.cart-total { display: flex; justify-content: space-between; font-size: 1.5rem; font-weight: 700; margin: 25px 0; padding-top: 20px; border-top: 2px solid var(--gold); }
+.empty-cart { text-align: center; padding: 40px 0; color: var(--gray); font-size: 1.2rem; }
 
 .form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.92rem; }
-.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; font-size: 1rem; transition: border 0.25s; background: var(--card); font-family: inherit; color: var(--dark); }
+.form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 1.15rem; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; font-size: 1.2rem; transition: border 0.25s; background: var(--card); font-family: inherit; color: var(--dark); font-weight: 600; }
 .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--gold); }
 .form-group input.input-error { border-color: #B0442B; background: #FDF5F3; }
-.form-hint { font-size: 0.8rem; color: var(--gray); margin-top: 4px; }
+.form-hint { font-size: 1rem; color: var(--gray); margin-top: 4px; }
 .form-hint.error { color: #B0442B; font-weight: 700; }
-.btn-submit { width: 100%; background: var(--green); color: var(--bg); border: none; padding: 15px; border-radius: 8px; font-size: 1.05rem; font-weight: 700; cursor: pointer; margin-top: 20px; transition: all 0.25s; font-family: inherit; letter-spacing: 1px; }
+.btn-submit { width: 100%; background: var(--green); color: var(--bg); border: none; padding: 14px; border-radius: 8px; font-size: 1.35rem; font-weight: 700; cursor: pointer; margin-top: 20px; transition: all 0.25s; font-family: inherit; letter-spacing: 1px; }
 .btn-submit:hover { background: var(--dark); color: var(--gold-light); }
 .btn-submit:disabled { background: var(--gray); cursor: not-allowed; color: #fff; }
 
 .success-message { text-align: center; padding: 40px 20px; }
-.success-icon { font-size: 4rem; margin-bottom: 20px; }
-.success-message h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--green); }
-.success-message p { color: var(--gray); margin-bottom: 20px; }
-.order-number { background: #FCF5E3; padding: 15px; border-radius: 8px; font-weight: 700; font-size: 1.2rem; color: var(--green); margin: 20px 0; border: 1px solid var(--gold-light); }
+.success-message h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--green); }
+.success-message p { color: var(--gray); margin-bottom: 20px; font-size: 1.15rem; }
+.order-number { background: #FCF5E3; padding: 15px; border-radius: 8px; font-weight: 700; font-size: 1.4rem; color: var(--green); margin: 20px 0; border: 1px solid var(--gold-light); }
 
-.error-box { background: #FBEDE8; color: #B0442B; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #B0442B; font-size: 0.9rem; font-family: monospace; word-break: break-word; }
-.error-box strong { display: block; margin-bottom: 5px; font-family: inherit; }
-.btn-retry { width: 100%; background: var(--gold); color: var(--dark); border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; font-family: inherit; font-size: 0.95rem; }
+.error-box { background: #FBEDE8; color: #B0442B; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #B0442B; font-size: 1.05rem; font-family: 'JetBrains Mono', Consolas, monospace; word-break: break-word; }
+.error-box strong { display: block; margin-bottom: 5px; font-family: inherit; font-size: 1.15rem; }
+.btn-retry { width: 100%; background: var(--gold); color: var(--dark); border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; font-family: inherit; font-size: 1.2rem; }
 .btn-retry:hover { background: var(--gold-light); }
-.btn-wa-fallback { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; font-family: inherit; font-size: 0.95rem; }
+.btn-wa-fallback { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; font-family: inherit; font-size: 1.2rem; }
 
 footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 24px 20px; margin-top: 70px; }
 .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto 30px; }
-.footer-col h4 { margin-bottom: 15px; color: var(--gold); letter-spacing: 1px; }
-.footer-col p, .footer-col a { color: rgba(250,247,240,0.75); text-decoration: none; display: block; margin-bottom: 8px; font-size: 0.93rem; }
+.footer-col h4 { margin-bottom: 15px; color: var(--gold); letter-spacing: 1px; font-size: 1.5rem; font-weight: 700; }
+.footer-col p, .footer-col a { color: rgba(250,247,240,0.75); text-decoration: none; display: block; margin-bottom: 8px; font-size: 1.15rem; }
 .footer-col a:hover { color: var(--gold); }
-.footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(250,247,240,0.15); color: rgba(250,247,240,0.5); font-size: 0.88rem; }
+.footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid rgba(250,247,240,0.15); color: rgba(250,247,240,0.5); font-size: 1.05rem; }
 
-.whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; text-decoration: none; box-shadow: 0 4px 16px rgba(37,211,102,0.4); transition: all 0.25s; z-index: 99; }
+.whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 700; text-decoration: none; box-shadow: 0 4px 16px rgba(37,211,102,0.4); transition: all 0.25s; z-index: 99; letter-spacing: 0.5px; }
 .whatsapp-float:hover { transform: scale(1.08); }
 .whatsapp-float { animation: softPulse 2.8s ease-in-out infinite; }
 
 @media (max-width: 768px) {
   .container { padding-left: 16px; padding-right: 16px; }
   .nav { padding: 12px 16px; gap: 12px; }
-  .logo { font-size: 1.05rem; }
-  .cart-btn { padding: 9px 12px; font-size: 0.85rem; }
-  .hero h1 { font-size: 2rem; }
+  .logo { font-size: 1.5rem; }
+  .cart-btn { padding: 7px 12px; font-size: 1rem; }
+  .hero h1 { font-size: 2.8rem; }
   .hero { padding: 56px 16px 64px; }
-  .hero p { font-size: 1rem; }
-  .section-title { font-size: 1.7rem; }
+  .hero p { font-size: 1.15rem; }
+  .section-title { font-size: 2.4rem; }
   .menu-section { padding: 48px 0; }
   .dishes-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-  .dish-image { height: 150px; font-size: 3.8rem; }
+  .dish-image { height: 150px; }
   .modal { padding: 12px; }
   .modal-content { padding: 20px 16px; }
-  .whatsapp-float { width: 48px; height: 48px; right: 16px; bottom: 16px; font-size: 1.5rem; }
+  .whatsapp-float { width: 52px; height: 52px; right: 16px; bottom: 16px; font-size: 1.1rem; }
 }
 </style>
 </head>
@@ -184,11 +180,10 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
 <header>
   <div class="container nav">
     <div class="logo">
-      <span>🍽️</span>
       <div>RICHMOND<span>FOOD</span></div>
     </div>
     <button class="cart-btn" onclick="openCart()">
-      🛒 Panier
+      Panier
       <span class="cart-count" id="cartCount">0</span>
     </button>
   </div>
@@ -196,22 +191,22 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
 
 <section class="hero">
   <div class="container">
-    <h1>🍽️ RICHMOND FOOD</h1>
+    <h1>RICHMOND FOOD</h1>
     <p>Commandez vos plats préférés à Abidjan<br>Livraison rapide • Paiement Mobile Money</p>
     <div class="hero-buttons">
-      <button class="btn-primary" onclick="scrollToMenu()">🍴 Voir le menu</button>
+      <button class="btn-primary" onclick="scrollToMenu()">Voir le menu</button>
       <a href="https://wa.me/22584827766?text=Bonjour%20RICHMOND%20FOOD" target="_blank" class="btn-secondary">
-        💬 Commander par WhatsApp
+        Commander par WhatsApp
       </a>
     </div>
   </div>
 </section>
 
 <div class="info-bar">
-  <div class="info-item"><span>🕐</span> <span>Lun-Sam : 10h - 22h</span></div>
-  <div class="info-item"><span>🛵</span> <span>Livraison Abidjan</span></div>
-  <div class="info-item"><span>📱</span> <span>Wave / Orange Money</span></div>
-  <div class="info-item"><span>📞</span> <span>+225 84 82 77 66</span></div>
+  <div class="info-item"><span>Lun-Sam : 10h - 22h</span></div>
+  <div class="info-item"><span>Livraison Abidjan</span></div>
+  <div class="info-item"><span>Wave / Orange Money</span></div>
+  <div class="info-item"><span>+225 84 82 77 66</span></div>
 </div>
 
 <section class="menu-section" id="menu">
@@ -220,14 +215,14 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
     <p class="section-subtitle">Sélectionnez vos plats et commandez en quelques clics</p>
     <div class="categories" id="categories"></div>
     <div class="menu-tools">
-      <input class="search-box" id="searchInput" type="search" placeholder="🔎 Rechercher un plat...">
+      <input class="search-box" id="searchInput" type="search" placeholder="Rechercher un plat...">
       <select class="sort-select" id="sortSelect">
         <option value="popular">Trier : recommandés</option>
         <option value="price-asc">Prix croissant</option>
         <option value="price-desc">Prix décroissant</option>
         <option value="name">Nom A à Z</option>
       </select>
-      <button class="favorites-toggle" id="favoritesToggle" type="button" onclick="toggleFavorites()">♡ Mes favoris</button>
+      <button class="favorites-toggle" id="favoritesToggle" type="button" onclick="toggleFavorites()">Mes favoris</button>
     </div>
     <div class="results-note" id="resultsNote"></div>
     <div class="dishes-grid" id="dishes"></div>
@@ -237,7 +232,7 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
 <div class="modal" id="cartModal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2 class="modal-title">🛒 Votre panier</h2>
+      <h2 class="modal-title">Votre panier</h2>
       <button class="close-btn" onclick="closeCart()">✕</button>
     </div>
     <div id="cartContent"></div>
@@ -257,7 +252,7 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
 <div class="modal" id="orderModal">
   <div class="modal-content">
     <div class="modal-header">
-      <h2 class="modal-title">📝 Finaliser la commande</h2>
+      <h2 class="modal-title">Finaliser la commande</h2>
       <button class="close-btn" onclick="closeOrder()">✕</button>
     </div>
     <div id="orderContent">
@@ -268,8 +263,8 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
         </div>
         <div class="form-group">
           <label>Téléphone (WhatsApp) *</label>
-          <input type="tel" id="customerPhone" required placeholder="Ex: 07 11 07 00 01">
-          <div class="form-hint" id="phoneHint">Format : 07/05/01 + 8 chiffres</div>
+          <input type="tel" id="customerPhone" required placeholder="07 / 05 / 01 suivi de 8 chiffres">
+          <div class="form-hint" id="phoneHint">Format : 07 / 05 / 01 suivi de 8 chiffres</div>
         </div>
         <div class="form-group">
           <label>Adresse de livraison *</label>
@@ -279,9 +274,9 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
           <label>Mode de paiement *</label>
           <select id="paymentMethod" required>
             <option value="">-- Choisir --</option>
-            <option value="wave">💸 Wave</option>
-            <option value="orange_money">📱 Orange Money</option>
-            <option value="cash">💵 Espèces à la livraison</option>
+            <option value="wave">Wave</option>
+            <option value="orange_money">Orange Money</option>
+            <option value="cash">Espèces à la livraison</option>
           </select>
         </div>
         <div class="form-group">
@@ -292,7 +287,7 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
           <span>Total à payer :</span>
           <span id="orderTotal">0 FCFA</span>
         </div>
-        <button type="submit" class="btn-submit" id="submitBtn">✅ Confirmer la commande</button>
+        <button type="submit" class="btn-submit" id="submitBtn">Confirmer la commande</button>
       </form>
     </div>
   </div>
@@ -300,15 +295,15 @@ footer { background: var(--dark); color: rgba(250,247,240,0.85); padding: 50px 2
 
 <footer>
   <div class="footer-grid">
-    <div class="footer-col"><h4>🍽️ RICHMOND FOOD</h4><p>Votre restaurant en ligne à Abidjan.</p></div>
-    <div class="footer-col"><h4>Contact</h4><p>📞 +225 84 82 77 66</p><p>📍 Abidjan, Cocody Angre</p></div>
+    <div class="footer-col"><h4>RICHMOND FOOD</h4><p>Votre restaurant en ligne à Abidjan.</p></div>
+    <div class="footer-col"><h4>Contact</h4><p>+225 84 82 77 66</p><p>Abidjan, Cocody Angre</p></div>
     <div class="footer-col"><h4>Horaires</h4><p>Lun-Ven : 10h - 22h</p><p>Samedi : 10h - 23h</p></div>
     <div class="footer-col"><h4>Liens</h4><a href="#menu">Voir le menu</a><a href="https://wa.me/22584827766">WhatsApp</a></div>
   </div>
   <div class="footer-bottom">© 2026 RICHMOND FOOD - Tous droits réservés</div>
 </footer>
 
-<a href="https://wa.me/22584827766?text=Bonjour%20RICHMOND%20FOOD" target="_blank" class="whatsapp-float">💬</a>
+<a href="https://wa.me/22584827766?text=Bonjour%20RICHMOND%20FOOD" target="_blank" class="whatsapp-float" aria-label="WhatsApp">WA</a>
 
 <script>
 // ================================================================
@@ -328,43 +323,43 @@ const NGROK_HEADERS = {
 };
 
 let MENU = [
-  { id: 1, name: 'Attieke Poisson', category: 'locaux', price: 2500, icon: '🐟', desc: 'Attieke frais avec poisson grillé', tags: ['hot'] },
-  { id: 2, name: 'Riz Sauce Graine', category: 'locaux', price: 2000, icon: '🍚', desc: 'Riz avec sauce graine onctueuse' },
-  { id: 3, name: 'Kedjenou de Poulet', category: 'locaux', price: 4500, icon: '🍗', desc: 'Poulet mijoté aux légumes', tags: ['hot'] },
-  { id: 4, name: 'Garba', category: 'locaux', price: 1500, icon: '🍚', desc: 'Attieke avec thon frit' },
-  { id: 5, name: 'Sauce Claire Poisson', category: 'locaux', price: 3000, icon: '🐟', desc: 'Poisson frais en sauce claire' },
-  { id: 6, name: 'Riz Gras', category: 'locaux', price: 2000, icon: '🍚', desc: 'Riz cuisiné aux légumes' },
-  { id: 7, name: 'Poulet Yassa', category: 'locaux', price: 4000, icon: '🍗', desc: 'Poulet mariné aux oignons', tags: ['new'] },
-  { id: 8, name: 'Foutou Sauce Arachide', category: 'locaux', price: 3500, icon: '🥘', desc: 'Foutou avec sauce arachide' },
-  { id: 10, name: 'Burger Classic', category: 'fastfood', price: 3500, icon: '🍔', desc: 'Pain, steak, fromage', tags: ['new'] },
-  { id: 11, name: 'Pizza Margherita', category: 'fastfood', price: 6000, icon: '🍕', desc: 'Tomate, fromage, basilic' },
-  { id: 12, name: 'Pizza Pepperoni', category: 'fastfood', price: 7000, icon: '🍕', desc: 'Fromage, pepperoni', tags: ['hot'] },
-  { id: 13, name: 'Sandwich Poulet', category: 'fastfood', price: 2500, icon: '🥪', desc: 'Poulet grillé, crudités' },
-  { id: 14, name: 'Hot-Dog', category: 'fastfood', price: 2000, icon: '🌭', desc: 'Saucisse, pain' },
-  { id: 15, name: 'Tacos Poulet', category: 'fastfood', price: 3000, icon: '🌯', desc: 'Poulet épicé, fromage' },
-  { id: 20, name: 'Poulet Braisé', category: 'grillades', price: 5000, icon: '🍗', desc: 'Poulet entier braisé', tags: ['hot'] },
-  { id: 21, name: 'Brochettes de Boeuf', category: 'grillades', price: 3000, icon: '🍖', desc: 'Brochettes tendres' },
-  { id: 22, name: 'Poisson Braisé', category: 'grillades', price: 4000, icon: '🐟', desc: 'Poisson entier grillé' },
-  { id: 23, name: 'Cotelettes Agneau', category: 'grillades', price: 6500, icon: '🍖', desc: 'Cotelettes grillées' },
-  { id: 24, name: 'Aloco', category: 'grillades', price: 2000, icon: '🍌', desc: 'Bananes plantain frites', tags: ['veg'] },
-  { id: 30, name: 'Jus de Bissap', category: 'boissons', price: 500, icon: '🥤', desc: "Jus d'hibiscus", tags: ['veg'] },
-  { id: 31, name: 'Jus de Gingembre', category: 'boissons', price: 500, icon: '🥤', desc: 'Jus de gingembre', tags: ['veg'] },
-  { id: 32, name: 'Jus de Bouye', category: 'boissons', price: 700, icon: '🥤', desc: 'Jus de baobab', tags: ['veg'] },
-  { id: 33, name: 'Coca-Cola 33cl', category: 'boissons', price: 600, icon: '🥤', desc: 'Boisson gazeuse' },
-  { id: 34, name: 'Eau Minerale 50cl', category: 'boissons', price: 300, icon: '💧', desc: 'Eau fraîche' },
-  { id: 40, name: 'Beignets', category: 'desserts', price: 500, icon: '🍩', desc: 'Beignets sucrés', tags: ['veg'] },
-  { id: 41, name: 'Gaufres', category: 'desserts', price: 1000, icon: '🧇', desc: 'Gaufres croustillantes', tags: ['veg'] },
-  { id: 42, name: 'Salade de Fruits', category: 'desserts', price: 1500, icon: '🍓', desc: 'Fruits frais', tags: ['veg'] },
-  { id: 43, name: 'Milkshake Vanille', category: 'desserts', price: 2000, icon: '🥤', desc: 'Milkshake vanille', tags: ['new'] },
+  { id: 1, name: 'Attieke Poisson', category: 'locaux', price: 2500, desc: 'Attieke frais avec poisson grillé', tags: ['hot'] },
+  { id: 2, name: 'Riz Sauce Graine', category: 'locaux', price: 2000, desc: 'Riz avec sauce graine onctueuse' },
+  { id: 3, name: 'Kedjenou de Poulet', category: 'locaux', price: 4500, desc: 'Poulet mijoté aux légumes', tags: ['hot'] },
+  { id: 4, name: 'Garba', category: 'locaux', price: 1500, desc: 'Attieke avec thon frit' },
+  { id: 5, name: 'Sauce Claire Poisson', category: 'locaux', price: 3000, desc: 'Poisson frais en sauce claire' },
+  { id: 6, name: 'Riz Gras', category: 'locaux', price: 2000, desc: 'Riz cuisiné aux légumes' },
+  { id: 7, name: 'Poulet Yassa', category: 'locaux', price: 4000, desc: 'Poulet mariné aux oignons', tags: ['new'] },
+  { id: 8, name: 'Foutou Sauce Arachide', category: 'locaux', price: 3500, desc: 'Foutou avec sauce arachide' },
+  { id: 10, name: 'Burger Classic', category: 'fastfood', price: 3500, desc: 'Pain, steak, fromage', tags: ['new'] },
+  { id: 11, name: 'Pizza Margherita', category: 'fastfood', price: 6000, desc: 'Tomate, fromage, basilic' },
+  { id: 12, name: 'Pizza Pepperoni', category: 'fastfood', price: 7000, desc: 'Fromage, pepperoni', tags: ['hot'] },
+  { id: 13, name: 'Sandwich Poulet', category: 'fastfood', price: 2500, desc: 'Poulet grillé, crudités' },
+  { id: 14, name: 'Hot-Dog', category: 'fastfood', price: 2000, desc: 'Saucisse, pain' },
+  { id: 15, name: 'Tacos Poulet', category: 'fastfood', price: 3000, desc: 'Poulet épicé, fromage' },
+  { id: 20, name: 'Poulet Braisé', category: 'grillades', price: 5000, desc: 'Poulet entier braisé', tags: ['hot'] },
+  { id: 21, name: 'Brochettes de Boeuf', category: 'grillades', price: 3000, desc: 'Brochettes tendres' },
+  { id: 22, name: 'Poisson Braisé', category: 'grillades', price: 4000, desc: 'Poisson entier grillé' },
+  { id: 23, name: 'Cotelettes Agneau', category: 'grillades', price: 6500, desc: 'Cotelettes grillées' },
+  { id: 24, name: 'Aloco', category: 'grillades', price: 2000, desc: 'Bananes plantain frites', tags: ['veg'] },
+  { id: 30, name: 'Jus de Bissap', category: 'boissons', price: 500, desc: "Jus d'hibiscus", tags: ['veg'] },
+  { id: 31, name: 'Jus de Gingembre', category: 'boissons', price: 500, desc: 'Jus de gingembre', tags: ['veg'] },
+  { id: 32, name: 'Jus de Bouye', category: 'boissons', price: 700, desc: 'Jus de baobab', tags: ['veg'] },
+  { id: 33, name: 'Coca-Cola 33cl', category: 'boissons', price: 600, desc: 'Boisson gazeuse' },
+  { id: 34, name: 'Eau Minerale 50cl', category: 'boissons', price: 300, desc: 'Eau fraîche' },
+  { id: 40, name: 'Beignets', category: 'desserts', price: 500, desc: 'Beignets sucrés', tags: ['veg'] },
+  { id: 41, name: 'Gaufres', category: 'desserts', price: 1000, desc: 'Gaufres croustillantes', tags: ['veg'] },
+  { id: 42, name: 'Salade de Fruits', category: 'desserts', price: 1500, desc: 'Fruits frais', tags: ['veg'] },
+  { id: 43, name: 'Milkshake Vanille', category: 'desserts', price: 2000, desc: 'Milkshake vanille', tags: ['new'] },
 ];
 
 const CATEGORIES = [
-  { id: 'all', name: '🍴 Tous' },
-  { id: 'locaux', name: '🥘 Plats Locaux' },
-  { id: 'fastfood', name: '🍔 Fast-Food' },
-  { id: 'grillades', name: '🍗 Grillades' },
-  { id: 'boissons', name: '🥤 Boissons' },
-  { id: 'desserts', name: '🍰 Desserts' },
+  { id: 'all', name: 'Tous' },
+  { id: 'locaux', name: 'Plats Locaux' },
+  { id: 'fastfood', name: 'Fast-Food' },
+  { id: 'grillades', name: 'Grillades' },
+  { id: 'boissons', name: 'Boissons' },
+  { id: 'desserts', name: 'Desserts' },
 ];
 
 function escapeHtml(value = '') {
@@ -381,30 +376,33 @@ let favoritesOnly = false;
 let favorites = [];
 let lastOrderData = null;
 
+// ================================================================
+// IMAGES RÉELLES DES PLATS
+// ================================================================
 const DISH_IMAGES = {
-  1: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=85',
-  2: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=900&q=85',
-  3: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=85',
-  4: 'https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=900&q=85',
-  5: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=85',
-  6: 'https://images.unsplash.com/photo-1596560548464-f010549b84d7?auto=format&fit=crop&w=900&q=85',
-  7: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=900&q=85',
-  8: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=900&q=85',
-  10: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=85',
+  1:  'https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?auto=format&fit=crop&w=900&q=85',
+  2:  'https://images.unsplash.com/photo-1596797038530-2c107229654b?auto=format&fit=crop&w=900&q=85',
+  3:  'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=900&q=85',
+  4:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKts_XJjNWElIfRMPsxLHN1zN68emdA4PnNmCb8qCJHqQhrEYKyBr_KoI&s=10',
+  5:  'https://scontent-hkg4-1.xx.fbcdn.net/v/t39.30808-6/475030652_1650162652253860_9005699672211662242_n.jpg?stp=dst-jpg_tt6&cstp=mx1299x1441&ctp=p600x600&_nc_cat=108&ccb=1-7&_nc_sid=b96d88&_nc_ohc=ISFjaM3TpC0Q7kNvwFeTXoc&_nc_oc=AdpheSafZWWfrWh8EvxeF-6UZgMzB8mUPA_tUiEjcztOrqRhRW3e8alg1ww4Fydrgdg&_nc_zt=23&_nc_ht=scontent-hkg4-1.xx&_nc_gid=Jd3OUM2dHV6L-VTARJJZMw&_nc_ss=7b289&oh=00_AQMUWNCE_3cs-QpqcdMBk9TAr9CS-WCNAkjPyPipl7iysg&oe=6AC2F189',
+  6:  'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=900&q=85',
+  7:  'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?auto=format&fit=crop&w=900&q=85',
+  8:  'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85',
+  10: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85',
   11: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=85',
-  12: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=900&q=85',
+  12: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=900&q=85',
   13: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85',
-  14: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85',
-  15: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85',
-  20: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=900&q=85',
-  21: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=85',
+  14: 'https://images.unsplash.com/photo-1612392062798-0f20c8bd0b4c?auto=format&fit=crop&w=900&q=85',
+  15: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=900&q=85',
+  20: 'https://images.unsplash.com/photo-1610057099443-fde8c4d50f91?auto=format&fit=crop&w=900&q=85',
+  21: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=900&q=85',
   22: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=85',
-  23: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=900&q=85',
-  24: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=900&q=85',
-  30: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=85',
-  31: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=85',
-  32: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85',
-  33: 'https://images.unsplash.com/photo-1581636625402-29b2a704ef13?auto=format&fit=crop&w=900&q=85',
+  23: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?auto=format&fit=crop&w=900&q=85',
+  24: 'https://images.unsplash.com/photo-1603052875302-d3c2c8c4d68f?auto=format&fit=crop&w=900&q=85',
+  30: 'https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=900&q=85',
+  31: 'https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&fit=crop&w=900&q=85',
+  32: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=900&q=85',
+  33: 'https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=900&q=85',
   34: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=900&q=85',
   40: 'https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=900&q=85',
   41: 'https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=900&q=85',
@@ -421,7 +419,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadCart();
   document.getElementById('searchInput').addEventListener('input', (e) => { searchTerm = e.target.value.trim().toLowerCase(); renderDishes(); });
   document.getElementById('sortSelect').addEventListener('change', (e) => { sortMode = e.target.value; renderDishes(); });
-  // Validation en temps réel du téléphone
   const phoneInput = document.getElementById('customerPhone');
   if (phoneInput) {
     phoneInput.addEventListener('input', validatePhoneLive);
@@ -453,7 +450,7 @@ function updateFavoritesButton() {
   const b = document.getElementById('favoritesToggle');
   if (!b) return;
   b.classList.toggle('active', favoritesOnly);
-  b.textContent = favoritesOnly ? '♥ Tous les plats' : '♡ Mes favoris';
+  b.textContent = favoritesOnly ? 'Tous les plats' : 'Mes favoris';
 }
 
 function renderCategories() {
@@ -469,7 +466,7 @@ function openDishDetails(dishId) {
   const cat = CATEGORIES.find(i => i.id === dish.category);
   const img = DISH_IMAGES[dish.id];
   document.getElementById('dishDetailsContent').innerHTML = `
-    <img class="dish-detail-image" src="${escapeHtml(img || '')}" alt="${escapeHtml(dish.name)}" onerror="this.hidden=true">
+    <img class="dish-detail-image" src="${escapeHtml(img || '')}" alt="${escapeHtml(dish.name)}" onerror="this.style.display='none'">
     <div class="dish-detail-body">
       <div>${(dish.tags || []).map(t => `<span class="badge badge-${t}">${t}</span>`).join('')}</div>
       <h3>${escapeHtml(dish.name)}</h3>
@@ -478,7 +475,7 @@ function openDishDetails(dishId) {
         <span class="dish-detail-category">${escapeHtml(cat ? cat.name : 'Plat')}</span>
         <span class="dish-detail-price">${formatPrice(dish.price)}</span>
       </div>
-      <button class="btn-submit" onclick="addToCartFromDetails(${dish.id})">+ Ajouter au panier</button>
+      <button class="btn-submit" onclick="addToCartFromDetails(${dish.id})">Ajouter au panier</button>
     </div>`;
   document.getElementById('dishModal').classList.add('active');
 }
@@ -504,14 +501,13 @@ function renderDishes() {
   container.innerHTML = filtered.map(dish => {
     const safeName = escapeHtml(dish.name);
     let badges = '';
-    if (dish.tags?.includes('hot')) badges += '<span class="badge badge-hot">🔥 Populaire</span>';
-    if (dish.tags?.includes('new')) badges += '<span class="badge badge-new">✨ Nouveau</span>';
-    if (dish.tags?.includes('veg')) badges += '<span class="badge badge-veg">🌱 Veggie</span>';
+    if (dish.tags?.includes('hot')) badges += '<span class="badge badge-hot">Populaire</span>';
+    if (dish.tags?.includes('new')) badges += '<span class="badge badge-new">Nouveau</span>';
+    if (dish.tags?.includes('veg')) badges += '<span class="badge badge-veg">Veggie</span>';
     return `
       <div class="dish-card" role="button" tabindex="0" onclick="openDishDetails(${dish.id})" aria-label="Voir ${safeName}">
         <div class="dish-image">
-          <img src="${escapeHtml(DISH_IMAGES[dish.id] || '')}" alt="${safeName}" loading="lazy" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
-          <span class="dish-image-fallback" hidden>${escapeHtml(dish.icon)}</span>
+          <img src="${escapeHtml(DISH_IMAGES[dish.id] || '')}" alt="${safeName}" loading="lazy" onerror="this.style.display='none'">
         </div>
         <div class="dish-info">
           <div class="dish-name">${safeName}</div>
@@ -521,7 +517,7 @@ function renderDishes() {
             <div class="dish-price">${formatPrice(dish.price)}</div>
             <div class="dish-actions">
               <button class="favorite-btn ${favorites.includes(dish.id) ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite(${dish.id})">${favorites.includes(dish.id) ? '♥' : '♡'}</button>
-              <button class="btn-add" onclick="event.stopPropagation(); addToCart(${dish.id})">+ Ajouter</button>
+              <button class="btn-add" onclick="event.stopPropagation(); addToCart(${dish.id})">Ajouter</button>
             </div>
           </div>
         </div>
@@ -535,7 +531,7 @@ function addToCart(dishId) {
   const existing = cart.find(i => i.id === dishId);
   if (existing) existing.qty += 1;
   else cart.push({ ...dish, qty: 1 });
-  saveCart(); updateCartCount(); showNotification(`${dish.name} ajouté !`);
+  saveCart(); updateCartCount(); showNotification(`${dish.name} ajouté au panier`);
 }
 function removeFromCart(id) { cart = cart.filter(i => i.id !== id); saveCart(); updateCartCount(); renderCart(); }
 function updateQty(id, delta) {
@@ -568,7 +564,7 @@ function closeCart() { document.getElementById('cartModal').classList.remove('ac
 function renderCart() {
   const c = document.getElementById('cartContent');
   if (cart.length === 0) {
-    c.innerHTML = `<div class="empty-cart"><div style="font-size:4rem;">🛒</div><p style="margin-top:15px;">Votre panier est vide</p></div>`;
+    c.innerHTML = `<div class="empty-cart"><p style="font-size:1.4rem;font-weight:700;">Votre panier est vide</p><p style="margin-top:8px;font-size:1.1rem;">Ajoutez des plats pour commencer</p></div>`;
     return;
   }
   const sub = getCartSubtotal(), del = getDeliveryFee(), tot = getCartTotal();
@@ -576,26 +572,26 @@ function renderCart() {
     ${cart.map(i => `
       <div class="cart-item">
         <div class="cart-item-info">
-          <div class="cart-item-name">${i.icon} ${i.name}</div>
+          <div class="cart-item-name">${i.name}</div>
           <div class="cart-item-price">${(i.price * i.qty).toLocaleString()} F</div>
         </div>
         <div class="qty-controls">
           <button class="qty-btn" onclick="updateQty(${i.id}, -1)">−</button>
           <span class="qty-display">${i.qty}</span>
           <button class="qty-btn" onclick="updateQty(${i.id}, 1)">+</button>
-          <button class="remove-btn" onclick="removeFromCart(${i.id})">🗑</button>
+          <button class="remove-btn" onclick="removeFromCart(${i.id})">Suppr.</button>
         </div>
       </div>`).join('')}
     <div style="margin-top:20px;padding:15px;background:#F4EFE4;border-radius:10px;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Sous-total</span><strong>${sub.toLocaleString()} F</strong></div>
-      <div style="display:flex;justify-content:space-between;"><span>Livraison</span><strong>${del === 0 ? 'GRATUITE 🎉' : del.toLocaleString() + ' F'}</strong></div>
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:1.15rem;"><span>Sous-total</span><strong>${sub.toLocaleString()} F</strong></div>
+      <div style="display:flex;justify-content:space-between;font-size:1.15rem;"><span>Livraison</span><strong>${del === 0 ? 'GRATUITE' : del.toLocaleString() + ' F'}</strong></div>
     </div>
     <div class="cart-total"><span>Total :</span><span>${tot.toLocaleString()} F</span></div>
-    <button class="btn-submit" onclick="openOrder()">✅ Commander maintenant</button>`;
+    <button class="btn-submit" onclick="openOrder()">Commander maintenant</button>`;
 }
 
 function openOrder() {
-  if (cart.length === 0) { showNotification('Ajoutez des plats !'); return; }
+  if (cart.length === 0) { showNotification('Ajoutez des plats avant de commander'); return; }
   closeCart();
   document.getElementById('orderTotal').textContent = getCartTotal().toLocaleString() + ' FCFA';
   document.getElementById('orderContent').innerHTML = `
@@ -603,25 +599,24 @@ function openOrder() {
       <div class="form-group"><label>Nom complet *</label><input type="text" id="customerName" required></div>
       <div class="form-group">
         <label>Téléphone (WhatsApp) *</label>
-        <input type="tel" id="customerPhone" required placeholder="Ex: 07 11 07 00 01">
-        <div class="form-hint" id="phoneHint">Format : 07/05/01 + 8 chiffres</div>
+        <input type="tel" id="customerPhone" required placeholder="07 / 05 / 01 suivi de 8 chiffres">
+        <div class="form-hint" id="phoneHint">Format : 07 / 05 / 01 suivi de 8 chiffres</div>
       </div>
       <div class="form-group"><label>Adresse de livraison *</label><textarea id="customerAddress" required rows="3"></textarea></div>
       <div class="form-group">
         <label>Mode de paiement *</label>
         <select id="paymentMethod" required>
           <option value="">-- Choisir --</option>
-          <option value="wave">💸 Wave</option>
-          <option value="orange_money">📱 Orange Money</option>
-          <option value="cash">💵 Espèces à la livraison</option>
+          <option value="wave">Wave</option>
+          <option value="orange_money">Orange Money</option>
+          <option value="cash">Espèces à la livraison</option>
         </select>
       </div>
       <div class="form-group"><label>Notes (facultatif)</label><textarea id="notes" rows="2"></textarea></div>
       <div class="cart-total"><span>Total à payer :</span><span id="orderTotal">${getCartTotal().toLocaleString()} FCFA</span></div>
-      <button type="submit" class="btn-submit" id="submitBtn">✅ Confirmer la commande</button>
+      <button type="submit" class="btn-submit" id="submitBtn">Confirmer la commande</button>
     </form>`;
   document.getElementById('orderModal').classList.add('active');
-  // Relance la validation live sur le nouveau champ
   const phoneInput = document.getElementById('customerPhone');
   if (phoneInput) {
     phoneInput.addEventListener('input', validatePhoneLive);
@@ -630,22 +625,16 @@ function openOrder() {
 }
 function closeOrder() { document.getElementById('orderModal').classList.remove('active'); }
 
-// ================================================================
-// ✅ FONCTION DE NORMALISATION DU NUMÉRO (NOUVELLE)
-// ================================================================
 function normalizeIvorianPhone(raw) {
   if (!raw) return { valid: false, normalized: '', clean: '' };
   const clean = String(raw).replace(/\D/g, '');
 
-  // Format 1 : 10 chiffres local (ex: 0711070001, 0501020304, 0101020304)
   if (/^0(1|5|7)\d{8}$/.test(clean)) {
     return { valid: true, normalized: '225' + clean, clean };
   }
-  // Format 2 : 13 chiffres international complet (ex: 2250711070001)
   if (/^2250(1|5|7)\d{8}$/.test(clean)) {
     return { valid: true, normalized: clean, clean };
   }
-  // Format 3 : 12 chiffres sans le 0 après 225 (ex: 225711070001) — à corriger
   if (/^225(1|5|7)\d{8}$/.test(clean)) {
     return { valid: true, normalized: '2250' + clean.substring(3), clean };
   }
@@ -653,9 +642,6 @@ function normalizeIvorianPhone(raw) {
   return { valid: false, normalized: '', clean };
 }
 
-// ================================================================
-// ✅ VALIDATION EN TEMPS RÉEL (feedback visuel)
-// ================================================================
 function validatePhoneLive(event) {
   const input = event.target;
   const hint = document.getElementById('phoneHint');
@@ -665,7 +651,7 @@ function validatePhoneLive(event) {
   if (!value) {
     input.classList.remove('input-error');
     hint.className = 'form-hint';
-    hint.textContent = 'Format : 07/05/01 + 8 chiffres';
+    hint.textContent = 'Format : 07 / 05 / 01 suivi de 8 chiffres';
     return;
   }
 
@@ -673,73 +659,62 @@ function validatePhoneLive(event) {
   if (result.valid) {
     input.classList.remove('input-error');
     hint.className = 'form-hint';
-    hint.textContent = `✅ Numéro valide → ${result.normalized}`;
+    hint.textContent = `Numéro valide : ${result.normalized}`;
   } else {
     input.classList.add('input-error');
     hint.className = 'form-hint error';
-    hint.textContent = '❌ Numéro invalide. Ex: 07 11 07 00 01';
+    hint.textContent = 'Numéro invalide. Entrez un numéro ivoirien valide.';
   }
 }
 
-// ================================================================
-// ✅ FONCTION submitOrder ENTIÈREMENT CORRIGÉE
-// ================================================================
 async function submitOrder(event) {
   event.preventDefault();
 
-  // 1) Récupération des champs
   const customerName = document.getElementById('customerName').value.trim();
   const customerAddress = document.getElementById('customerAddress').value.trim();
   const paymentMethod = document.getElementById('paymentMethod').value.trim();
   const notes = document.getElementById('notes').value.trim();
   const rawPhone = document.getElementById('customerPhone').value.trim();
 
-  // 2) Validation du nom
   if (customerName.length < 2) {
-    alert("❌ Veuillez entrer un nom valide (au moins 2 caractères).");
+    alert("Veuillez entrer un nom valide (au moins 2 caractères).");
     document.getElementById('customerName').focus();
     return;
   }
 
-  // 3) Validation du téléphone ivoirien
   const phoneResult = normalizeIvorianPhone(rawPhone);
   if (!phoneResult.valid) {
     alert(
-      "❌ Numéro WhatsApp invalide.\n\n" +
-      "Entrez un numéro ivoirien valide :\n" +
-      "Exemple : 07 11 07 00 01\n\n" +
+      "Numéro WhatsApp invalide.\n\n" +
+      "Entrez un numéro ivoirien valide.\n\n" +
       "Formats acceptés :\n" +
-      "  • 07 XX XX XX XX\n" +
-      "  • 05 XX XX XX XX\n" +
-      "  • 01 XX XX XX XX\n\n" +
-      "⚠️ Ce numéro doit être un compte WhatsApp ACTIF\n" +
+      "  - 07 suivi de 8 chiffres\n" +
+      "  - 05 suivi de 8 chiffres\n" +
+      "  - 01 suivi de 8 chiffres\n\n" +
+      "Ce numéro doit être un compte WhatsApp actif\n" +
       "pour recevoir les notifications de suivi."
     );
     document.getElementById('customerPhone').focus();
     return;
   }
 
-  // 4) Validation de l'adresse
   if (customerAddress.length < 5) {
-    alert("❌ Veuillez entrer une adresse de livraison complète (au moins 5 caractères).");
+    alert("Veuillez entrer une adresse de livraison complète (au moins 5 caractères).");
     document.getElementById('customerAddress').focus();
     return;
   }
 
-  // 5) Validation du paiement
   if (!paymentMethod) {
-    alert("❌ Veuillez choisir un mode de paiement.");
+    alert("Veuillez choisir un mode de paiement.");
     document.getElementById('paymentMethod').focus();
     return;
   }
 
-  // 6) Validation du panier
   if (!cart || cart.length === 0) {
-    alert("❌ Votre panier est vide.");
+    alert("Votre panier est vide.");
     return;
   }
 
-  // 7) Construction de la commande avec le numéro NORMALISÉ
   const orderData = {
     customer_name: customerName,
     customer_phone: phoneResult.normalized,
@@ -756,26 +731,24 @@ async function submitOrder(event) {
 
   lastOrderData = orderData;
 
-  // Logs de debug
-  console.log('📞 Numéro brut :', rawPhone);
-  console.log('📞 Numéro nettoyé :', phoneResult.clean);
-  console.log('📞 Numéro envoyé à n8n :', phoneResult.normalized);
-  console.log('📦 Commande complète :', orderData);
+  console.log('Numéro brut :', rawPhone);
+  console.log('Numéro nettoyé :', phoneResult.clean);
+  console.log('Numéro envoyé à n8n :', phoneResult.normalized);
+  console.log('Commande complète :', orderData);
 
-  // 8) Envoi
   await sendOrder(orderData);
 }
 
 async function sendOrder(orderData) {
   const submitBtn = document.getElementById('submitBtn');
-  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '⏳ Envoi en cours...'; }
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours...'; }
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
 
   try {
-    console.log('📤 Envoi commande à :', CONFIG.WEBHOOK_URL);
-    console.log('📦 Données :', orderData);
+    console.log('Envoi commande à :', CONFIG.WEBHOOK_URL);
+    console.log('Données :', orderData);
 
     const response = await fetch(CONFIG.WEBHOOK_URL, {
       method: 'POST',
@@ -787,19 +760,19 @@ async function sendOrder(orderData) {
     });
 
     clearTimeout(timeoutId);
-    console.log('📥 Réponse HTTP :', response.status, response.statusText);
+    console.log('Réponse HTTP :', response.status, response.statusText);
 
     if (response.ok) {
       const text = await response.text();
-      console.log('✅ Réponse :', text);
+      console.log('Réponse :', text);
       showSuccess(orderData);
     } else {
       const errorText = await response.text();
-      throw new Error(`HTTP ${response.status} — ${errorText.substring(0, 200)}`);
+      throw new Error(`HTTP ${response.status} - ${errorText.substring(0, 200)}`);
     }
   } catch (error) {
     clearTimeout(timeoutId);
-    console.error('❌ ERREUR COMPLÈTE :', error);
+    console.error('ERREUR COMPLÈTE :', error);
 
     let errorMsg = error.message || 'Erreur inconnue';
     let errorType = 'Erreur réseau';
@@ -808,7 +781,7 @@ async function sendOrder(orderData) {
       errorMsg = 'Le serveur n\'a pas répondu dans les 15 secondes.';
       errorType = 'Timeout';
     } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-      errorMsg = 'Impossible de joindre le serveur. Vérifie que n8n et ngrok tournent.';
+      errorMsg = 'Impossible de joindre le serveur. Vérifiez que n8n et ngrok sont actifs.';
       errorType = 'Connexion impossible';
     } else if (error.message.includes('CORS')) {
       errorMsg = 'Blocage CORS. Le CORS n\'est pas activé sur le webhook n8n.';
@@ -823,50 +796,49 @@ function showSuccess(orderData) {
   const c = document.getElementById('orderContent');
 
   const waMessage = encodeURIComponent(
-    `Bonjour RICHMOND FOOD 🍽️\n\n` +
-    `Je viens de passer la commande *${orderData.order_number}*.\n\n` +
-    `👤 Nom : ${orderData.customer_name}\n` +
-    `📞 Téléphone : ${orderData.customer_phone}\n` +
-    `💰 Total : ${orderData.total.toLocaleString()} FCFA\n\n` +
+    `Bonjour RICHMOND FOOD\n\n` +
+    `Je viens de passer la commande ${orderData.order_number}.\n\n` +
+    `Nom : ${orderData.customer_name}\n` +
+    `Téléphone : ${orderData.customer_phone}\n` +
+    `Total : ${orderData.total.toLocaleString()} FCFA\n\n` +
     `Merci de me confirmer et de me tenir informé du suivi.`
   );
   const waUrl = `https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${waMessage}`;
 
   c.innerHTML = `
     <div style="padding:10px;">
-      <div style="text-align:center;font-size:4rem;margin-bottom:15px;">🎉</div>
-      <h3 style="text-align:center;color:var(--green);margin-bottom:10px;">Commande enregistrée !</h3>
-      <p style="text-align:center;color:var(--gray);">N° <strong>${escapeHtml(orderData.order_number)}</strong></p>
-      <p style="text-align:center;color:var(--gray);">Merci ${escapeHtml(orderData.customer_name)} !</p>
+      <h3 style="text-align:center;color:var(--green);margin-bottom:10px;font-size:1.8rem;">Commande enregistrée</h3>
+      <p style="text-align:center;color:var(--gray);font-size:1.15rem;">N° <strong>${escapeHtml(orderData.order_number)}</strong></p>
+      <p style="text-align:center;color:var(--gray);font-size:1.15rem;">Merci ${escapeHtml(orderData.customer_name)} !</p>
 
       <div style="background:#FCF5E3; border-left:4px solid #C89B3C; padding:18px; border-radius:10px; margin:20px 0;">
-        <p style="color:#1E2B22; font-weight:700; margin-bottom:10px; font-size:1.05rem;">
-          📱 DERNIÈRE ÉTAPE IMPORTANTE
+        <p style="color:#1E2B22; font-weight:700; margin-bottom:10px; font-size:1.3rem;">
+          Dernière étape importante
         </p>
-        <p style="color:#7A7A72; font-size:0.9rem; margin-bottom:15px; line-height:1.5;">
+        <p style="color:#7A7A72; font-size:1.1rem; margin-bottom:15px; line-height:1.5;">
           Pour recevoir la <strong>confirmation</strong> et le <strong>suivi de votre commande</strong> 
-          sur WhatsApp, cliquez sur le bouton vert ci-dessous puis appuyez sur 
+          sur WhatsApp, cliquez sur le bouton ci-dessous puis appuyez sur 
           <strong>"Envoyer"</strong> dans WhatsApp. Le message est déjà pré-rempli.
         </p>
 
         <a href="${waUrl}" target="_blank"
            style="display:block; background:#25D366; color:white; padding:16px; border-radius:8px; 
-                  text-decoration:none; font-weight:700; font-size:1.05rem; text-align:center;
+                  text-decoration:none; font-weight:700; font-size:1.3rem; text-align:center;
                   box-shadow: 0 4px 12px rgba(37,211,102,0.4);">
-          ✅ Activer mon suivi WhatsApp
+          Activer mon suivi WhatsApp
         </a>
       </div>
 
-      <p style="text-align:center;font-weight:700;font-size:1.15rem;color:var(--green);margin:20px 0;">
+      <p style="text-align:center;font-weight:700;font-size:1.5rem;color:var(--green);margin:20px 0;">
         Total : ${orderData.total.toLocaleString()} FCFA
       </p>
 
-      <p style="color:var(--gray); font-size:0.82rem; text-align:center; margin-top:10px;">
-        💡 Sans ce clic, WhatsApp ne nous autorise pas à vous envoyer de messages.
+      <p style="color:var(--gray); font-size:1rem; text-align:center; margin-top:10px;">
+        Sans ce clic, WhatsApp ne nous autorise pas à vous envoyer de messages.
       </p>
 
       <button class="btn-submit" onclick="finishOrder()" style="margin-top:25px;">
-        🏠 Retour à l'accueil
+        Retour à l'accueil
       </button>
     </div>`;
 
@@ -881,20 +853,19 @@ function showError(errorType, errorMsg, orderData) {
 
   c.innerHTML = `
     <div style="padding:20px;">
-      <div style="text-align:center;font-size:3rem;margin-bottom:15px;">⚠️</div>
-      <h3 style="text-align:center;margin-bottom:15px;color:var(--dark);">Erreur de connexion</h3>
+      <h3 style="text-align:center;margin-bottom:15px;color:var(--dark);font-size:1.6rem;">Erreur de connexion</h3>
 
       <div class="error-box">
-        <strong>🚨 ${escapeHtml(errorType)}</strong>
+        <strong>${escapeHtml(errorType)}</strong>
         ${escapeHtml(errorMsg)}
       </div>
 
-      <p style="color:var(--gray);font-size:0.85rem;margin-top:15px;text-align:center;">
-        📞 Pas de panique ! Tu peux réessayer ou envoyer ta commande directement par WhatsApp.
+      <p style="color:var(--gray);font-size:1.05rem;margin-top:15px;text-align:center;">
+        Pas de panique ! Vous pouvez réessayer ou envoyer votre commande directement par WhatsApp.
       </p>
 
-      <button class="btn-retry" onclick="retryOrder()">🔄 Réessayer l'envoi</button>
-      <button class="btn-wa-fallback" onclick="window.open('${waUrlEscaped}', '_blank')">💬 Envoyer par WhatsApp</button>
+      <button class="btn-retry" onclick="retryOrder()">Réessayer l'envoi</button>
+      <button class="btn-wa-fallback" onclick="window.open('${waUrlEscaped}', '_blank')">Envoyer par WhatsApp</button>
     </div>`;
 }
 
@@ -909,22 +880,22 @@ async function retryOrder() {
       <div class="form-group"><label>Nom complet *</label><input type="text" id="customerName" value="${escapeHtml(lastOrderData.customer_name)}" required></div>
       <div class="form-group">
         <label>Téléphone (WhatsApp) *</label>
-        <input type="tel" id="customerPhone" value="${escapeHtml(lastOrderData.customer_phone)}" required>
-        <div class="form-hint" id="phoneHint">Format : 07/05/01 + 8 chiffres</div>
+        <input type="tel" id="customerPhone" value="${escapeHtml(lastOrderData.customer_phone)}" required placeholder="07 / 05 / 01 suivi de 8 chiffres">
+        <div class="form-hint" id="phoneHint">Format : 07 / 05 / 01 suivi de 8 chiffres</div>
       </div>
       <div class="form-group"><label>Adresse de livraison *</label><textarea id="customerAddress" required rows="3">${escapeHtml(lastOrderData.customer_address)}</textarea></div>
       <div class="form-group">
         <label>Mode de paiement *</label>
         <select id="paymentMethod" required>
           <option value="">-- Choisir --</option>
-          <option value="wave" ${lastOrderData.payment_method === 'wave' ? 'selected' : ''}>💸 Wave</option>
-          <option value="orange_money" ${lastOrderData.payment_method === 'orange_money' ? 'selected' : ''}>📱 Orange Money</option>
-          <option value="cash" ${lastOrderData.payment_method === 'cash' ? 'selected' : ''}>💵 Espèces à la livraison</option>
+          <option value="wave" ${lastOrderData.payment_method === 'wave' ? 'selected' : ''}>Wave</option>
+          <option value="orange_money" ${lastOrderData.payment_method === 'orange_money' ? 'selected' : ''}>Orange Money</option>
+          <option value="cash" ${lastOrderData.payment_method === 'cash' ? 'selected' : ''}>Espèces à la livraison</option>
         </select>
       </div>
       <div class="form-group"><label>Notes (facultatif)</label><textarea id="notes" rows="2">${escapeHtml(lastOrderData.notes || '')}</textarea></div>
       <div class="cart-total"><span>Total à payer :</span><span id="orderTotal">${lastOrderData.total.toLocaleString()} FCFA</span></div>
-      <button type="submit" class="btn-submit" id="submitBtn">✅ Confirmer la commande</button>
+      <button type="submit" class="btn-submit" id="submitBtn">Confirmer la commande</button>
     </form>`;
   const phoneInput = document.getElementById('customerPhone');
   if (phoneInput) {
@@ -935,18 +906,18 @@ async function retryOrder() {
 }
 
 function buildWhatsAppMessage(order) {
-  let msg = `🍽️ *NOUVELLE COMMANDE*\n\n`;
+  let msg = `NOUVELLE COMMANDE\n\n`;
   msg += `N° : ${order.order_number}\n`;
-  msg += `👤 ${order.customer_name}\n`;
-  msg += `📞 ${order.customer_phone}\n`;
-  msg += `📍 ${order.customer_address}\n\n`;
-  msg += `*Articles :*\n`;
-  order.items.forEach(i => { msg += `• ${i.qty}x ${i.name} = ${(i.price * i.qty).toLocaleString()} F\n`; });
+  msg += `${order.customer_name}\n`;
+  msg += `${order.customer_phone}\n`;
+  msg += `${order.customer_address}\n\n`;
+  msg += `Articles :\n`;
+  order.items.forEach(i => { msg += `- ${i.qty}x ${i.name} = ${(i.price * i.qty).toLocaleString()} F\n`; });
   msg += `\nSous-total : ${order.subtotal.toLocaleString()} F`;
   msg += `\nLivraison : ${order.delivery_fee === 0 ? 'Gratuite' : order.delivery_fee.toLocaleString() + ' F'}`;
-  msg += `\n*TOTAL : ${order.total.toLocaleString()} F*\n\n`;
-  msg += `💳 Paiement : ${order.payment_method}`;
-  if (order.notes) msg += `\n\n📝 Notes : ${order.notes}`;
+  msg += `\nTOTAL : ${order.total.toLocaleString()} F\n\n`;
+  msg += `Paiement : ${order.payment_method}`;
+  if (order.notes) msg += `\n\nNotes : ${order.notes}`;
   return msg;
 }
 
@@ -955,7 +926,7 @@ function scrollToMenu() { document.getElementById('menu').scrollIntoView({ behav
 function showNotification(message) {
   const n = document.createElement('div');
   n.textContent = message;
-  n.style.cssText = `position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--green);color:#FAF7F0;padding:14px 28px;border-radius:8px;font-weight:700;z-index:2000;box-shadow:0 5px 20px rgba(0,0,0,0.2);border-left:4px solid var(--gold);`;
+  n.style.cssText = `position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--green);color:#FAF7F0;padding:14px 28px;border-radius:8px;font-weight:700;z-index:2000;box-shadow:0 5px 20px rgba(0,0,0,0.2);border-left:4px solid var(--gold);font-family:'Caveat',cursive;font-size:1.3rem;`;
   document.body.appendChild(n);
   setTimeout(() => { n.style.opacity = '0'; setTimeout(() => n.remove(), 300); }, 2000);
 }
